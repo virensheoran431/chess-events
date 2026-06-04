@@ -1,15 +1,11 @@
 [
   {
     "id": 1,
-    "title": "Sample Tournament",
+    "title": "Delhi Open Chess Tournament",
+    "city": "Delhi",
     "startDate": "2026-06-10",
     "endDate": "2026-06-12",
-    "city": "Delhi",
-    "eloMin": 1000,
-    "eloMax": 2000,
-    "format": "Rapid",
     "fee": 500,
-    "regLink": "https://example.com",
-    "brochure": "#"
+    "regLink": "https://example.com"
   }
 ]
