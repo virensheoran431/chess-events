@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChessEvents • India's Premier Tournament Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(to bottom, #f8fafc, #e0e7ff);
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #4338ca 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('https://source.unsplash.com/random/1920x1080/?chess') center/cover;
+            opacity: 0.15;
+        }
+        .tournament-card {
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .tournament-card:hover {
+            transform: translateY(-20px) scale(1.04);
+            box-shadow: 0 35px 70px -15px rgb(0 0 0 / 0.25);
+        }
+        .section { display: none; }
+        .active { display: block; }
+        .badge {
+            background: linear-gradient(90deg, #eab308, #f59e0b);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <span class="text-5xl">♟️</span>
+                <div>
+                    <h1 class="text-4xl font-bold text-indigo-700">ChessEvents</h1>
+                    <p class="text-xs text-gray-500 -mt-1">Find • Play • Win</p>
+                </div>
+            </div>
+            <div class="flex gap-10 text-lg font-semibold text-gray-700">
+                <a href="#" onclick="showSection('home')" class="hover:text-indigo-600 transition">Home</a>
+                <a href="#" onclick="showSection('tournaments')" class="hover:text-indigo-600 transition">Tournaments</a>
+                <a href="#" onclick="showSection('add')" class="hover:text-indigo-600 transition">List Event</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="section active hero-bg text-white py-32 text-center">
+        <div class="max-w-5xl mx-auto px-6 relative z-10">
+            <h1 class="text-7xl font-extrabold mb-6 leading-none">Your Next Move<br>Starts Here</h1>
+            <p class="text-3xl mb-12 max-w-3xl mx-auto">Discover 100+ exciting chess tournaments across India with direct registration</p>
+            <button onclick="showSection('tournaments')" 
+                    class="bg-white text-indigo-700 px-14 py-6 rounded-3xl text-3xl font-bold shadow-2xl hover:scale-110 transition flex items-center gap-4 mx-auto">
+                <i class="fas fa-chess-knight"></i> Explore Tournaments
+            </button>
+        </div>
+    </section>
+
+    <!-- Tournaments Section -->
+    <section id="tournaments" class="section max-w-7xl mx-auto px-6 py-16">
+        <div class="flex justify-between items-center mb-12">
+            <h2 class="text-5xl font-bold text-gray-800">Live Tournaments in India</h2>
+            <div class="text-sm bg-yellow-100 text-yellow-700 px-5 py-3 rounded-2xl font-medium">Updated June 2026</div>
+        </div>
+
+        <!-- Filters -->
+        <div class="bg-white p-8 rounded-3xl shadow-xl mb-12 grid grid-cols-1 md:grid-cols-6 gap-6">
+            <input id="searchCity" placeholder="Search City" class="border-2 border-gray-200 p-6 rounded-3xl text-lg focus:border-indigo-500 outline-none">
+            <input id="searchElo" type="number" placeholder="Your Elo" class="border-2 border-gray-200 p-6 rounded-3xl text-lg focus:border-indigo-500 outline-none">
+            <select id="searchFormat" class="border-2 border-gray-200 p-6 rounded-3xl text-lg focus:border-indigo-500 outline-none">
+                <option value="">All Formats</option>
+                <option value="Classical">Classical</option>
+                <option value="Rapid">Rapid</option>
+                <option value="Blitz">Blitz</option>
+            </select>
+            <select id="sortBy" class="border-2 border-gray-200 p-6 rounded-3xl text-lg focus:border-indigo-500 outline-none">
+                <option value="startDate">Start Date</option>
+                <option value="fee">Fee (Low → High)</option>
+                <option value="eloMax">Rating (High → Low)</option>
+            </select>
+            <button onclick="filterTournaments()" class="bg-indigo-600 text-white rounded-3xl text-xl font-bold hover:bg-indigo-700">🔍 Search</button>
+            <button onclick="resetFilters()" class="border-2 border-gray-300 hover:bg-gray-100 rounded-3xl text-xl">Reset</button>
+        </div>
+
+        <div class="flex justify-between items-center mb-6">
+            <p id="resultsCount" class="text-gray-600 font-medium"></p>
+        </div>
+
+        <div id="tournamentsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
+    </section>
+
+    <!-- Add Event -->
+    <section id="add" class="section max-w-3xl mx-auto px-6 py-20">
+        <div class="bg-white rounded-3xl shadow-2xl p-14">
+            <h2 class="text-4xl font-bold text-center mb-12">Host Your Own Tournament</h2>
+            <form onsubmit="addTournament(event)" class="space-y-8">
+                <input id="title" type="text" placeholder="Tournament Title *" required class="w-full border-2 p-6 rounded-3xl text-lg">
+                
+                <div class="grid grid-cols-2 gap-6">
+                    <input id="startDate" type="date" required class="border-2 p-6 rounded-3xl">
+                    <input id="endDate" type="date" required class="border-2 p-6 rounded-3xl">
+                </div>
+
+                <input id="city" type="text" placeholder="City *" required class="w-full border-2 p-6 rounded-3xl">
+                
+                <div class="grid grid-cols-3 gap-6">
+                    <input id="eloMin" type="number" placeholder="Min Elo" class="border-2 p-6 rounded-3xl">
+                    <input id="eloMax" type="number" placeholder="Max Elo" class="border-2 p-6 rounded-3xl">
+                    <select id="format" class="border-2 p-6 rounded-3xl">
+                        <option value="Classical">Classical</option>
+                        <option value="Rapid">Rapid</option>
+                        <option value="Blitz">Blitz</option>
+                    </select>
+                </div>
+
+                <input id="fee" type="number" placeholder="Entry Fee (₹)" class="w-full border-2 p-6 rounded-3xl">
+                <input id="regLink" type="url" placeholder="Registration Link / WhatsApp *" required class="w-full border-2 p-6 rounded-3xl">
+                <input id="brochure" type="url" placeholder="Brochure Link (optional)" class="w-full border-2 p-6 rounded-3xl">
+                
+                <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white py-7 text-2xl font-bold rounded-3xl hover:brightness-110">
+                    Publish Tournament
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        let tournaments = [
+            {id:1, title:"4th Gujarat International Open Grandmasters 2026", startDate:"2026-06-01", endDate:"2026-06-08", city:"Ahmedabad", eloMin:1800, eloMax:2800, format:"Classical", fee:2500, regLink:"https://aicf.in", brochure:"https://aicf.in/wp-content/uploads/2026/04/Prospectus-Draft.pdf"},
+            {id:2, title:"Meridian All India Open Rapid 2026", startDate:"2026-05-30", endDate:"2026-06-01", city:"Hyderabad", eloMin:1000, eloMax:2200, format:"Rapid", fee:1200, regLink:"https://www.chesstelangana.com", brochure:"#"},
+            {id:3, title:"13th BBCF International FIDE Rapid", startDate:"2026-06-20", endDate:"2026-06-20", city:"Bangalore", eloMin:1200, eloMax:2300, format:"Rapid", fee:1500, regLink:"https://chessmii.com", brochure:"#"},
+            {id:4, title:"National Under-7 Chess Championship", startDate:"2026-06-30", endDate:"2026-07-04", city:"Nagpur", eloMin:400, eloMax:1400, format:"Classical", fee:1500, regLink:"https://aicf.in/upcoming-nationals/", brochure:"https://aicf.in/wp-content/uploads/2026/06/Revised-Circular-of-National-Under-7-Chess-Championships-2026.pdf"},
+            // ... (keeping your original ones)
+        ];
+
+        // Generate more entries
+        for(let i = 5; i <= 35; i++) {
+            tournaments.push({
+                id: i,
+                title: `Regional Open Chess Tournament 2026 #${i}`,
+                startDate: `2026-06-${String(10 + (i%15)).padStart(2,'0')}`,
+                endDate: `2026-06-${String(15 + (i%12)).padStart(2,'0')}`,
+                city: ["Pune","Jaipur","Lucknow","Indore","Patna","Bhubaneswar","Guwahati","Ranchi","Chandigarh","Coimbatore"][i%10],
+                eloMin: 700 + (i*30)%1200,
+                eloMax: 1400 + (i*40)%1500,
+                format: ["Classical","Rapid","Blitz"][i%3],
+                fee: 600 + (i*100)%2000,
+                regLink: i%3 === 0 ? "https://aicf.in" : "https://chessmii.com",
+                brochure: i%5 === 0 ? "https://aicf.in/sample-brochure.pdf" : "#"
+            });
+        }
+
+        function formatDate(dateStr) {
+            function getCountdown(startDate) {
+    const today = new Date();
+    const start = new Date(startDate);
+
+    today.setHours(0,0,0,0);
+    start.setHours(0,0,0,0);
+
+    const diff = Math.ceil((start - today) / (1000 * 60 * 60 * 24));
+
+    if (diff < 0) return "⏳ Ongoing";
+    if (diff === 0) return "🚀 Starts Today";
+    if (diff === 1) return "📅 Starts Tomorrow";
+
+    return `📅 Starts in ${diff} days`;
+}
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+        }
+
+        function isFeatured(t) {
+            return t.eloMax >= 2400;
+        }
+        function getCountdown(startDate) {
+    const today = new Date();
+    const start = new Date(startDate);
+
+    today.setHours(0,0,0,0);
+    start.setHours(0,0,0,0);
+
+    const diff = Math.ceil(
+        (start - today) / (1000 * 60 * 60 * 24)
+    );
+
+    if (diff < 0) return "⏳ Tournament Started";
+    if (diff === 0) return "🚀 Starts Today";
+    if (diff === 1) return "📅 Starts Tomorrow";
+
+    return `📅 Starts in ${diff} days`;
+}
+
+        function renderTournaments(data) {
+            const container = document.getElementById('tournamentsList');
+            container.innerHTML = '';
+
+            if (data.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-3 text-center py-20">
+                        <p class="text-4xl mb-4">😕</p>
+                        <p class="text-xl text-gray-600">No tournaments found matching your criteria.</p>
+                    </div>`;
+                document.getElementById('resultsCount').textContent = '0 tournaments found';
+                return;
+            }
+
+            document.getElementById('resultsCount').textContent = `${data.length} tournaments found`;
+
+            data.forEach(t => {
+                
+                const featuredHTML = isFeatured(t) ? `
+                    <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-4 py-1.5 rounded-full flex items-center gap-1 shadow-lg">
+                        <i class="fas fa-fire"></i> FEATURED
+                    </div>` : '';
+
+                let html = `
+                    <div class="tournament-card bg-white rounded-3xl overflow-hidden border border-gray-100 relative">
+                        <div class="h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+                        ${featuredHTML}
+                        <div class="p-8">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="badge text-white text-xs font-bold px-4 py-1.5 rounded-full">${t.format}</span>
+                                <span class="text-sm font-medium text-gray-500">${formatDate(t.startDate)} — ${formatDate(t.endDate)}</span>
+                            </div>
+                           <h3 class="text-2xl font-bold mb-2 leading-tight">
+    ${t.title}
+</h3>
+
+<div class="text-green-600 font-bold mb-3">
+    ${getCountdown(t.startDate)}
+</div>
+                            <div class="flex items-center gap-2 text-gray-600 mb-6">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span class="font-medium">${t.city}</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-y-4 text-sm mb-8">
+                                <div><span class="font-semibold">Rating:</span> ${t.eloMin}–${t.eloMax}</div>
+                                <div><span class="font-semibold">Fee:</span> ₹${t.fee}</div>
+                            </div>
+                            <div class="flex gap-4">
+                                <a href="${t.regLink}" target="_blank" class="flex-1 text-center bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-semibold text-lg">Register Now</a>
+                                ${t.brochure !== "#" ? `<a href="${t.brochure}" target="_blank" class="flex-1 text-center bg-red-600 hover:bg-red-700 text-white py-4 rounded-2xl font-semibold text-lg">📄 Brochure</a>` : ''}<button onclick="saveTournament(${t.id})"
+class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-4 rounded-2xl font-bold">
+❤️
+</button>
+                            </div>
+                        </div>
+                    </div>`;
+                container.innerHTML += html;
+            });
+        }
+
+        function filterTournaments() {
+            const city = document.getElementById('searchCity').value.toLowerCase();
+            const elo = parseInt(document.getElementById('searchElo').value) || 0;
+            const format = document.getElementById('searchFormat').value;
+            const sortBy = document.getElementById('sortBy').value;
+
+            let filtered = tournaments.filter(t => 
+                (!city || t.city.toLowerCase().includes(city)) &&
+                (!elo || (t.eloMin <= elo && t.eloMax >= elo)) &&
+                (!format || t.format === format)
+            );
+
+            // Sorting
+            if (sortBy === 'startDate') {
+                filtered.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+            } else if (sortBy === 'fee') {
+                filtered.sort((a, b) => a.fee - b.fee);
+            } else if (sortBy === 'eloMax') {
+                filtered.sort((a, b) => b.eloMax - a.eloMax);
+            }
+
+            renderTournaments(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById('searchCity').value = '';
+            document.getElementById('searchElo').value = '';
+            document.getElementById('searchFormat').value = '';
+            document.getElementById('sortBy').value = 'startDate';
+            renderTournaments(tournaments);
+        }
+
+        function addTournament(e) {
+            e.preventDefault();
+            const today = new Date().toISOString().split('T')[0];
+
+if (document.getElementById('endDate').value < today) {
+    alert("Tournament end date cannot be in the past.");
+    return;
+}
+
+            const newTournament = {
+                id: Date.now(),
+                title: document.getElementById('title').value,
+                startDate: document.getElementById('startDate').value,
+                endDate: document.getElementById('endDate').value,
+                city: document.getElementById('city').value,
+                eloMin: parseInt(document.getElementById('eloMin').value) || 1000,
+                eloMax: parseInt(document.getElementById('eloMax').value) || 2200,
+                format: document.getElementById('format').value,
+                fee: parseInt(document.getElementById('fee').value) || 1500,
+                regLink: document.getElementById('regLink').value,
+                brochure: document.getElementById('brochure').value || "#"
+            };
+
+            tournaments.unshift(newTournament);
+            localStorage.setItem('chessTournaments', JSON.stringify(tournaments));
+
+            alert("🎉 Tournament published successfully!");
+            e.target.reset();
+            showSection('tournaments');
+        }
+function saveTournament(id) {
+
+    let saved =
+        JSON.parse(localStorage.getItem('savedTournaments')) || [];
+
+    if (!saved.includes(id)) {
+        saved.push(id);
+
+        localStorage.setItem(
+            'savedTournaments',
+            JSON.stringify(saved)
+        );
+
+        alert("❤️ Tournament Saved!");
+    } else {
+        alert("Tournament already saved.");
+    }
+}
+        function showSection(section) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(section).classList.add('active');
+            
+            if (section === 'tournaments') {
+                renderTournaments(tournaments);
+            }
+        }
+
+        // Load from localStorage
+        function loadTournaments() {
+    const saved = localStorage.getItem('chessTournaments');
+
+    if (saved) {
+        tournaments = JSON.parse(saved);
+    }
+
+    // Remove expired tournaments automatically
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    tournaments = tournaments.filter(tournament => {
+        const endDate = new Date(tournament.endDate);
+        endDate.setHours(23, 59, 59, 999);
+        return endDate >= today;
+    });
+
+    localStorage.setItem(
+        'chessTournaments',
+        JSON.stringify(tournaments)
+    );
+}
+
+      window.onload = () => {
+    loadTournaments();
+    renderTournaments(tournaments);
+    showSection('home');
+};
+    </script>
+</body>
+</html>
