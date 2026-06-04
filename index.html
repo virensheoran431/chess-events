@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="description" content="ChessEvents - Find chess tournaments across India. Explore upcoming chess events, register easily, and stay updated with live chess competitions.">
+<meta name="keywords" content="chess tournaments India, chess events 2026, online chess registration, FIDE tournaments India, rapid chess tournaments, classical chess events, chess competition India">
+<meta name="author" content="ChessEvents">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChessEvents • India's Premier Tournament Hub</title>
+    <title>Chess Tournaments in India 2026 | ChessEvents - Register & Play</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
@@ -138,47 +141,62 @@
     </section>
 
     <script>
-        let tournaments = [
-            {id:1, title:"4th Gujarat International Open Grandmasters 2026", startDate:"2026-06-01", endDate:"2026-06-08", city:"Ahmedabad", eloMin:1800, eloMax:2800, format:"Classical", fee:2500, regLink:"https://aicf.in", brochure:"https://aicf.in/wp-content/uploads/2026/04/Prospectus-Draft.pdf"},
-            {id:2, title:"Meridian All India Open Rapid 2026", startDate:"2026-05-30", endDate:"2026-06-01", city:"Hyderabad", eloMin:1000, eloMax:2200, format:"Rapid", fee:1200, regLink:"https://www.chesstelangana.com", brochure:"#"},
-            {id:3, title:"13th BBCF International FIDE Rapid", startDate:"2026-06-20", endDate:"2026-06-20", city:"Bangalore", eloMin:1200, eloMax:2300, format:"Rapid", fee:1500, regLink:"https://chessmii.com", brochure:"#"},
-            {id:4, title:"National Under-7 Chess Championship", startDate:"2026-06-30", endDate:"2026-07-04", city:"Nagpur", eloMin:400, eloMax:1400, format:"Classical", fee:1500, regLink:"https://aicf.in/upcoming-nationals/", brochure:"https://aicf.in/wp-content/uploads/2026/06/Revised-Circular-of-National-Under-7-Chess-Championships-2026.pdf"},
-            // ... (keeping your original ones)
-        ];
-
-        // Generate more entries
-        for(let i = 5; i <= 35; i++) {
-            tournaments.push({
-                id: i,
-                title: `Regional Open Chess Tournament 2026 #${i}`,
-                startDate: `2026-06-${String(10 + (i%15)).padStart(2,'0')}`,
-                endDate: `2026-06-${String(15 + (i%12)).padStart(2,'0')}`,
-                city: ["Pune","Jaipur","Lucknow","Indore","Patna","Bhubaneswar","Guwahati","Ranchi","Chandigarh","Coimbatore"][i%10],
-                eloMin: 700 + (i*30)%1200,
-                eloMax: 1400 + (i*40)%1500,
-                format: ["Classical","Rapid","Blitz"][i%3],
-                fee: 600 + (i*100)%2000,
-                regLink: i%3 === 0 ? "https://aicf.in" : "https://chessmii.com",
-                brochure: i%5 === 0 ? "https://aicf.in/sample-brochure.pdf" : "#"
-            });
-        }
-
+       let tournaments = [
+    {
+        id: 1,
+        title: "4th Gujarat International Open Grandmasters 2026",
+        startDate: "2026-06-01",
+        endDate: "2026-06-08",
+        city: "Ahmedabad",
+        eloMin: 1800,
+        eloMax: 2800,
+        format: "Classical",
+        fee: 2500,
+        regLink: "https://aicf.in",
+        brochure: "https://aicf.in/wp-content/uploads/2026/04/Prospectus-Draft.pdf"
+    },
+    {
+        id: 2,
+        title: "Meridian All India Open Rapid 2026",
+        startDate: "2026-05-30",
+        endDate: "2026-06-01",
+        city: "Hyderabad",
+        eloMin: 1000,
+        eloMax: 2200,
+        format: "Rapid",
+        fee: 1200,
+        regLink: "https://www.chesstelangana.com",
+        brochure: "#"
+    },
+    {
+        id: 3,
+        title: "13th BBCF International FIDE Rapid",
+        startDate: "2026-06-20",
+        endDate: "2026-06-20",
+        city: "Bangalore",
+        eloMin: 1200,
+        eloMax: 2300,
+        format: "Rapid",
+        fee: 1500,
+        regLink: "https://chessmii.com",
+        brochure: "#"
+    },
+    {
+        id: 4,
+        title: "National Under-7 Chess Championship",
+        startDate: "2026-06-30",
+        endDate: "2026-07-04",
+        city: "Nagpur",
+        eloMin: 400,
+        eloMax: 1400,
+        format: "Classical",
+        fee: 1500,
+        regLink: "https://aicf.in/upcoming-nationals/",
+        brochure: "https://aicf.in/wp-content/uploads/2026/06/Revised-Circular-of-National-Under-7-Chess-Championships-2026.pdf"
+    }
+];
         function formatDate(dateStr) {
-            function getCountdown(startDate) {
-    const today = new Date();
-    const start = new Date(startDate);
-
-    today.setHours(0,0,0,0);
-    start.setHours(0,0,0,0);
-
-    const diff = Math.ceil((start - today) / (1000 * 60 * 60 * 24));
-
-    if (diff < 0) return "⏳ Ongoing";
-    if (diff === 0) return "🚀 Starts Today";
-    if (diff === 1) return "📅 Starts Tomorrow";
-
-    return `📅 Starts in ${diff} days`;
-}
+           
             const date = new Date(dateStr);
             return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
         }
@@ -353,15 +371,10 @@ function saveTournament(id) {
             }
         }
 
-        // Load from localStorage
         function loadTournaments() {
-    const saved = localStorage.getItem('chessTournaments');
+    // 🔥 Force clear old fake/local data once
+    
 
-    if (saved) {
-        tournaments = JSON.parse(saved);
-    }
-
-    // Remove expired tournaments automatically
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -370,11 +383,6 @@ function saveTournament(id) {
         endDate.setHours(23, 59, 59, 999);
         return endDate >= today;
     });
-
-    localStorage.setItem(
-        'chessTournaments',
-        JSON.stringify(tournaments)
-    );
 }
 
       window.onload = () => {
