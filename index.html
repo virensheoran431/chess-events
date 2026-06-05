@@ -7,15 +7,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chess Tournaments in India 2026 | ChessEvents</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;600;800&display=swap');
         
         body {
             font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-            background: #0b0f19;
-            color: #f1f5f9;
+            background: #161512;
+            color: #bababa;
             transition: background 0.4s ease, color 0.4s ease;
         }
         
@@ -23,7 +25,7 @@
         .hero-bg {
             background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent),
                         radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.15), transparent),
-                        #111827;
+                        #1e1e1e;
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -37,7 +39,7 @@
             mix-blend-mode: overlay;
         }
         
-        /* Glassmorphism Cards with Neon Glows */
+        /* Glassmorphism Cards */
         .tournament-card {
             background: rgba(30, 41, 59, 0.4);
             backdrop-filter: blur(12px);
@@ -51,7 +53,7 @@
             background: rgba(30, 41, 59, 0.7);
         }
 
-        /* Smooth Stage Switches */
+        /* Smooth Section Switches */
         .section { 
             opacity: 0;
             transform: translateY(20px) scale(0.98);
@@ -65,7 +67,7 @@
         }
         .section.active { 
             opacity: 1;
-            transform: translateY(0 scale(1));
+            transform: translateY(0) scale(1);
             pointer-events: auto;
             position: relative;
         }
@@ -74,7 +76,7 @@
             min-height: 70vh;
         }
 
-        /* Interactive Animated Nav Tags */
+        /* Nav Tags */
         .nav-link {
             position: relative;
             color: #94a3b8;
@@ -104,7 +106,7 @@
             width: 100%; 
         }
 
-        /* Premium Light Mode Overrides with dynamic color fixes */
+        /* Light Mode Colors Overrides */
         body.light {
             background: #f4f6fa !important;
             color: #1e293b !important;
@@ -120,10 +122,6 @@
         body.light .tournament-card {
             background: #ffffff !important;
             border-color: #e2e8f0 !important;
-        }
-        body.light .tournament-card:hover {
-            border-color: #6366f1 !important;
-            box-shadow: 0 20px 30px -10px rgba(99, 102, 241, 0.15) !important;
         }
         body.light .tournament-card h3,
         body.light .section h2,
@@ -158,17 +156,14 @@
             color: #0f172a !important;
             border-color: #cbd5e1 !important;
         }
-        body.light .bg-slate-800:hover {
-            background-color: #cbd5e1 !important;
-        }
     </style>
 </head>
 <body class="antialiased">
 
-    <nav class="bg-slate-900/40 backdrop-blur-xl border-b border-white/5 sticky top-0 z-50 transition-all">
+    <nav class="bg-zinc-900/80 backdrop-blur-xl border-b border-white/5 sticky top-0 z-50 transition-all">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3 cursor-pointer" onclick="showSection(event, 'home')">
-                <span class="text-4xl animate-pulse">♟️</span>
+                <span class="text-4xl">♞</span>
                 <div>
                     <h1 class="text-2xl font-black tracking-tighter bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">ChessEvents</h1>
                     <p class="text-[10px] uppercase font-extrabold tracking-widest text-indigo-400/80 -mt-0.5">Control The Board</p>
@@ -179,11 +174,12 @@
                 <a href="#" onclick="showSection(event, 'home')" id="nav-home" class="nav-link active-nav">Home</a>
                 <a href="#" onclick="showSection(event, 'tournaments')" id="nav-tournaments" class="nav-link">Tournaments</a>
                 <a href="#" onclick="showSection(event, 'saved')" id="nav-saved" class="nav-link flex items-center gap-1.5">Saved <span id="savedCount" class="text-[10px] bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-black px-2 py-0.5 rounded-md hidden">0</span></a>
+                <a href="#" onclick="showSection(event, 'about')" id="nav-about" class="nav-link">About Me</a>
                 <a href="#" onclick="showSection(event, 'guide')" id="nav-guide" class="nav-link">How to Use</a>
                 <a href="#" onclick="showSection(event, 'suggestions')" id="nav-suggestions" class="nav-link">Suggestions</a>
                 <a href="#" onclick="showSection(event, 'manage')" id="nav-manage" class="nav-link">Manage</a>
                 <a href="#" onclick="showSection(event, 'add')" id="nav-add" class="nav-link px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-xl shadow-lg shadow-indigo-500/20 transition duration-300">List Event</a>
-                <button onclick="toggleDarkMode()" id="darkModeBtn" class="p-2.5 rounded-xl bg-slate-800 text-amber-400 hover:bg-slate-700 transition duration-200">☀️</button>
+                <button onclick="toggleDarkMode()" id="darkModeBtn" class="p-2.5 rounded-xl bg-zinc-800 text-amber-400 hover:bg-zinc-700 transition duration-200">☀️</button>
             </div>
         </div>
     </nav>
@@ -197,26 +193,28 @@
                         <span class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 inline-block">India's Ultimate Chess Hub • 2026</span>
                         <h1 class="text-6xl md:text-7xl font-black mb-6 tracking-tight leading-none text-white">MAKE YOUR NEXT<br><span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">ELITE MOVE</span></h1>
                         <p class="text-lg text-slate-300 mb-10 max-w-2xl mx-auto font-medium">Instantly tap into premium FIDE Rated, Rapid, and classical tournaments across India with direct zero-friction registrations.</p>
-                        <button onclick="showSection(event, 'tournaments')" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-10 py-4 rounded-xl text-md font-extrabold shadow-xl shadow-purple-500/20 hover:scale-[1.05] hover:shadow-purple-500/40 transition duration-300 flex items-center gap-3 mx-auto">
-                            <i class="fas fa-crosshairs text-lg"></i> Launch Tournament Map
-                        </button>
+                        <div class="flex gap-4 justify-center flex-wrap">
+                            <button onclick="showSection(event, 'tournaments')" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-8 py-4 rounded-xl text-md font-extrabold shadow-xl shadow-purple-500/20 hover:scale-[1.05] hover:shadow-purple-500/40 transition duration-300 flex items-center gap-3">
+                                <i class="fas fa-crosshairs text-lg"></i> Launch Tournaments
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-slate-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
+                    <div class="bg-zinc-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
                         <div class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xl rounded-xl flex items-center justify-center shadow-inner">⚡</div>
                         <div><div class="text-3xl font-black text-indigo-400" id="statTotal">0</div><div class="text-slate-400 text-xs font-bold uppercase tracking-wider">Total Battles</div></div>
                     </div>
-                    <div class="bg-slate-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
+                    <div class="bg-zinc-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
                         <div class="w-12 h-12 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xl rounded-xl flex items-center justify-center shadow-inner">🔥</div>
                         <div><div class="text-3xl font-black text-amber-400" id="statRapid">0</div><div class="text-slate-400 text-xs font-bold uppercase tracking-wider">Rapid Arenas</div></div>
                     </div>
-                    <div class="bg-slate-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
+                    <div class="bg-zinc-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
                         <div class="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xl rounded-xl flex items-center justify-center shadow-inner">🏆</div>
                         <div><div class="text-3xl font-black text-emerald-400" id="statClassical">0</div><div class="text-slate-400 text-xs font-bold uppercase tracking-wider">Classical Pools</div></div>
                     </div>
-                    <div class="bg-slate-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
+                    <div class="bg-zinc-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
                         <div class="w-12 h-12 bg-pink-500/10 border border-pink-500/20 text-pink-400 text-xl rounded-xl flex items-center justify-center shadow-inner">👑</div>
                         <div><div class="text-3xl font-black text-pink-400" id="statFeatured">0</div><div class="text-slate-400 text-xs font-bold uppercase tracking-wider">Grandmaster Tier</div></div>
                     </div>
@@ -228,22 +226,22 @@
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div>
                     <h2 class="text-4xl font-black tracking-tight text-white">Live Operations</h2>
-                    <p class="text-sm text-slate-400 mt-1">Real-time indexed parameters across Indian state federations.</p>
+                    <p class="text-sm text-slate-400 mt-1">Real-time parameters indexed across Indian state federations.</p>
                 </div>
                 <div class="text-xs bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 px-4 py-2 rounded-xl font-black tracking-wider uppercase align-self-start md:align-self-auto animate-pulse">📡 Streaming Live Feeds</div>
             </div>
 
-            <div class="bg-slate-900/60 border border-white/5 p-4 rounded-2xl shadow-2xl mb-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+            <div class="bg-zinc-900/60 border border-white/5 p-4 rounded-2xl shadow-2xl mb-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
                 <div class="relative">
                     <span class="absolute inset-y-0 left-4 flex items-center text-slate-500"><i class="fas fa-search-location"></i></span>
-                    <input id="searchCity" oninput="filterTournaments()" placeholder="Type City Location..." class="w-full bg-slate-800/50 border border-white/5 pl-10 pr-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    <input id="searchCity" oninput="filterTournaments()" placeholder="Type City Location..." class="w-full bg-zinc-800/50 border border-white/5 pl-10 pr-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
                 </div>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-4 flex items-center text-slate-500"><i class="fas fa-fingerprint"></i></span>
-                    <input id="searchElo" type="number" oninput="filterTournaments()" placeholder="Your Target ELO..." class="w-full bg-slate-800/50 border border-white/5 pl-10 pr-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    <input id="searchElo" type="number" oninput="filterTournaments()" placeholder="Your Target ELO..." class="w-full bg-zinc-800/50 border border-white/5 pl-10 pr-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
                 </div>
                 <div>
-                    <select id="searchFormat" onchange="filterTournaments()" class="w-full bg-slate-800/50 border border-white/5 px-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-slate-300 transition">
+                    <select id="searchFormat" onchange="filterTournaments()" class="w-full bg-zinc-800/50 border border-white/5 px-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-slate-300 transition">
                         <option value="">All Formats</option>
                         <option value="Classical">Classical</option>
                         <option value="Rapid">Rapid</option>
@@ -251,13 +249,13 @@
                     </select>
                 </div>
                 <div>
-                    <select id="sortBy" onchange="filterTournaments()" class="w-full bg-slate-800/50 border border-white/5 px-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-slate-300 transition">
+                    <select id="sortBy" onchange="filterTournaments()" class="w-full bg-zinc-800/50 border border-white/5 px-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-slate-300 transition">
                         <option value="startDate">Timeline: Soonest First</option>
                         <option value="fee">Pricing: Low → High</option>
                         <option value="eloMax">Cap: High → Low</option>
                     </select>
                 </div>
-                <button onclick="resetFilters()" class="w-full bg-slate-800 hover:bg-slate-700 border border-white/10 font-bold rounded-xl text-sm py-3 text-white transition">Wipe Filters</button>
+                <button onclick="resetFilters()" class="w-full bg-zinc-800 hover:bg-zinc-700 border border-white/10 font-bold rounded-xl text-sm py-3 text-white transition">Wipe Filters</button>
             </div>
 
             <p id="resultsCount" class="text-xs text-indigo-400 uppercase font-black tracking-widest mb-6"></p>
@@ -266,90 +264,113 @@
 
         <section id="saved" class="section max-w-7xl mx-auto px-6 py-12">
             <h2 class="text-4xl font-black tracking-tight text-white mb-2">Saved Arenas Portfolio</h2>
-            <p class="text-sm text-slate-400 mb-8">Personal localized match vectors watchlist.</p>
+            <p class="text-sm text-slate-400 mb-8">Personal localized match vectors watchlist portfolio.</p>
             <div id="savedList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </section>
 
+        <section id="about" class="section max-w-3xl mx-auto px-6 py-12">
+            <div class="bg-zinc-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10 relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8 text-7xl opacity-5 pointer-events-none font-black text-indigo-400">♞</div>
+                <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Behind ChessEvents</h2>
+                <p class="text-slate-400 text-sm text-center mb-8">The story behind the platform architectural layout.</p>
+                
+                <div class="space-y-6 text-slate-300 leading-relaxed font-medium">
+                    <p>
+                        As an active chess player who crossed the <span class="text-indigo-400 font-extrabold">1500 ELO milestone on Chess.com</span>, I reached a point where online rapid arenas weren't enough. I wanted to take my game to the physical board and compete in over-the-board tournaments across India.
+                    </p>
+                    <div class="p-5 bg-zinc-800/30 rounded-2xl border border-white/5 my-6 flex items-start gap-4">
+                        <div class="text-2xl mt-0.5">🔍</div>
+                        <p class="text-sm text-slate-400">
+                            That's when I ran into a massive roadblock: <strong class="text-white">There was no reliable, centralized, or user-friendly website to easily track down open chess tournaments in India.</strong> Information was scattered across dated notices, messy links, and fragmented PDF circulars.
+                        </p>
+                    </div>
+                    <p>
+                        Frustrated by the friction it took just to find out where and when to play, I decided to engineer a clean solution myself. I developed <strong class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">ChessEvents</strong>—a zero-friction data deck designed specifically for Indian players to seamlessly discover, filter, and register for tournaments instantly.
+                    </p>
+                </div>
+            </div>
+        </section>
+
         <section id="guide" class="section max-w-3xl mx-auto px-6 py-12">
-            <div class="bg-slate-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
+            <div class="bg-zinc-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
                 <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Operation Checklist</h2>
                 <p class="text-slate-400 text-sm text-center mb-10">Deploy inside the platform interface efficiently.</p>
                 
                 <div class="space-y-6">
-                    <div class="flex gap-6 items-center p-4 bg-slate-800/30 rounded-2xl border border-white/5">
+                    <div class="flex gap-6 items-center p-4 bg-zinc-800/30 rounded-2xl border border-white/5">
                         <div class="w-12 h-12 bg-indigo-500/10 text-indigo-400 rounded-xl flex items-center justify-center text-lg font-black border border-indigo-500/20">01</div>
-                        <div><h3 class="text-md font-bold text-white">Scan Board</h3><p class="text-slate-400 text-xs mt-0.5">Filter live parameters against target Elo parameters.</p></div>
+                        <div><h3 class="text-md font-bold text-white">Scan Parameters</h3><p class="text-slate-400 text-xs mt-0.5">Filter live parameters against target Elo limits effortlessly.</p></div>
                     </div>
-                    <div class="flex gap-6 items-center p-4 bg-slate-800/30 rounded-2xl border border-white/5">
+                    <div class="flex gap-6 items-center p-4 bg-zinc-800/30 rounded-2xl border border-white/5">
                         <div class="w-12 h-12 bg-purple-500/10 text-purple-400 rounded-xl flex items-center justify-center text-lg font-black border border-purple-500/20">02</div>
-                        <div><h3 class="text-md font-bold text-white">Cache Matches</h3><p class="text-slate-400 text-xs mt-0.5">Click heart bookmarks to link metrics to client storage arrays.</p></div>
+                        <div><h3 class="text-md font-bold text-white">Cache Matches</h3><p class="text-slate-400 text-xs mt-0.5">Click heart bookmarks to cache entries instantly down to local storage arrays.</p></div>
                     </div>
-                    <div class="flex gap-6 items-center p-4 bg-slate-800/30 rounded-2xl border border-white/5">
+                    <div class="flex gap-6 items-center p-4 bg-zinc-800/30 rounded-2xl border border-white/5">
                         <div class="w-12 h-12 bg-pink-500/10 text-pink-400 rounded-xl flex items-center justify-center text-lg font-black border border-pink-500/20">03</div>
-                        <div><h3 class="text-md font-bold text-white">Direct Execution</h3><p class="text-slate-400 text-xs mt-0.5">Instantly forward payload parameters down external gateways.</p></div>
+                        <div><h3 class="text-md font-bold text-white">Direct Execution</h3><p class="text-slate-400 text-xs mt-0.5">Instantly forward payload links to access registration sheets.</p></div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="suggestions" class="section max-w-2xl mx-auto px-6 py-12">
-            <div class="bg-slate-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
+            <div class="bg-zinc-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
                 <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Feedback Transmission</h2>
-                <p class="text-center text-slate-400 text-sm mb-8">Route updates directly into main architecture pipelines.</p>
+                <p class="text-center text-slate-400 text-sm mb-8">Route telemetry updates directly into main architecture pipelines.</p>
                 
                 <form id="suggestionForm" onsubmit="submitSuggestion(event)" class="space-y-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <input type="text" id="suggestName" placeholder="Ident Callsign..." class="bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
-                        <input type="email" id="suggestEmail" placeholder="Return Gateway Email..." class="bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                        <input type="text" id="suggestName" placeholder="Ident Callsign..." class="bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                        <input type="email" id="suggestEmail" placeholder="Return Gateway Email..." class="bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
                     </div>
-                    <textarea id="suggestMessage" rows="4" placeholder="Input specific architectural insights or layout expansion specs..." class="w-full bg-slate-800/50 border border-white/5 p-5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition resize-none" required></textarea>
+                    <textarea id="suggestMessage" rows="4" placeholder="Input specific architectural layout feedback..." class="w-full bg-zinc-800/50 border border-white/5 p-5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition resize-none" required></textarea>
                     <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-4 font-black rounded-xl text-sm shadow-lg hover:brightness-110 transition">Transmit Payload Packets</button>
                 </form>
             </div>
         </section>
 
         <section id="manage" class="section max-w-4xl mx-auto px-6 py-12">
-            <div class="bg-slate-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
+            <div class="bg-zinc-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
                 <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Sys-Admin Terminal</h2>
-                <p class="text-center text-rose-400 text-xs font-black uppercase tracking-widest mb-8"><i class="fas fa-shield-alt mr-1"></i> Core Data Clearing Pipeline Locked</p>
+                <p class="text-center text-rose-400 text-xs font-black uppercase tracking-widest mb-8"><i class="fas fa-shield-alt mr-1"></i> Core Data Clearing Pipeline Active</p>
                 <div id="manageList" class="space-y-3"></div>
             </div>
         </section>
 
         <section id="add" class="section max-w-2xl mx-auto px-6 py-12">
-            <div class="bg-slate-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
+            <div class="bg-zinc-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
                 <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Index New Tournament</h2>
-                <p class="text-slate-400 text-sm text-center mb-8">Deploy raw contest records into ecosystem tables instantly.</p>
+                <p class="text-slate-400 text-sm text-center mb-8">Deploy raw contest records into ecosystem data pools instantly.</p>
                 
                 <form onsubmit="addTournament(event)" class="space-y-4">
-                    <input id="title" type="text" placeholder="Tournament Title Description *" required class="w-full bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    <input id="title" type="text" placeholder="Tournament Title Description *" required class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
                     
                     <div class="grid grid-cols-2 gap-4">
                         <div class="flex flex-col gap-1">
                             <label class="text-[10px] font-black text-indigo-400 uppercase tracking-wider pl-1">Start Timeline *</label>
-                            <input id="startDate" type="date" required class="bg-slate-800/50 border border-white/5 px-5 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                            <input id="startDate" type="date" required class="bg-zinc-800/50 border border-white/5 px-5 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
                         </div>
                         <div class="flex flex-col gap-1">
                             <label class="text-[10px] font-black text-indigo-400 uppercase tracking-wider pl-1">End Timeline *</label>
-                            <input id="endDate" type="date" required class="bg-slate-800/50 border border-white/5 px-5 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                            <input id="endDate" type="date" required class="bg-zinc-800/50 border border-white/5 px-5 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
                         </div>
                     </div>
 
-                    <input id="city" type="text" placeholder="Target City Location *" required class="w-full bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    <input id="city" type="text" placeholder="Target City Location *" required class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
                     
                     <div class="grid grid-cols-3 gap-4">
-                        <input id="eloMin" type="number" placeholder="Floor ELO" class="bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
-                        <input id="eloMax" type="number" placeholder="Ceiling ELO" class="bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
-                        <select id="format" class="bg-slate-800/50 border border-white/5 px-4 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-slate-300 transition">
+                        <input id="eloMin" type="number" placeholder="Floor ELO" class="bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                        <input id="eloMax" type="number" placeholder="Ceiling ELO" class="bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                        <select id="format" class="bg-zinc-800/50 border border-white/5 px-4 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-slate-300 transition">
                             <option value="Classical">Classical</option>
                             <option value="Rapid">Rapid</option>
                             <option value="Blitz">Blitz</option>
                         </select>
                     </div>
 
-                    <input id="fee" type="number" placeholder="Access Fee (INR ₹)" class="w-full bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
-                    <input id="regLink" type="url" placeholder="Gateway Access Hyper-Protocol Link *" required class="w-full bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
-                    <input id="brochure" type="url" placeholder="Official Data Circular Document URL" class="w-full bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    <input id="fee" type="number" placeholder="Access Fee (INR ₹)" class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    <input id="regLink" type="url" placeholder="Gateway Access Protocol URL Link *" required class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    <input id="brochure" type="url" placeholder="Official Data Brochure URL Docs" class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
                     
                     <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-4 font-black rounded-xl text-sm shadow-xl shadow-purple-500/10 transition">Deploy Production Index Payload</button>
                 </form>
@@ -366,10 +387,10 @@
         const ENCODED_PASS = "Y2hlc3NhZG1pbjEyMw==";
 
         let tournaments = [
-            { id: 1, title: "4th Gujarat International Open Grandmasters 2026", startDate: "2026-06-01", endDate: "2026-06-08", city: "Ahmedabad", eloMin: 1800, eloMax: 2800, format: "Classical", fee: 2500, regLink: "https://aicf.in", brochure: "https://aicf.in/wp-content/uploads/2026/04/Prospectus-Draft.pdf" },
-            { id: 2, title: "Meridian All India Open Rapid 2026", startDate: "2026-06-10", endDate: "2026-06-12", city: "Hyderabad", eloMin: 1000, eloMax: 2200, format: "Rapid", fee: 1200, regLink: "https://www.chesstelangana.com", brochure: "#" },
+            { id: 1, title: "4th Gujarat International Open Grandmasters 2026", startDate: "2026-06-01", endDate: "2026-06-08", city: "Ahmedabad", eloMin: 1800, eloMax: 2800, format: "Classical", fee: 2500, regLink: "https://aicf.in", brochure: "#" },
+            { id: 2, title: "Meridian All India Open Rapid 2026", startDate: "2026-06-10", endDate: "2026-06-12", city: "Hyderabad", eloMin: 1000, eloMax: 2200, format: "Rapid", fee: 1200, regLink: "https://aicf.in", brochure: "#" },
             { id: 3, title: "13th BBCF International FIDE Rapid", startDate: "2026-06-20", endDate: "2026-06-20", city: "Bangalore", eloMin: 1200, eloMax: 2300, format: "Rapid", fee: 1500, regLink: "https://chessmii.com", brochure: "#" },
-            { id: 4, title: "National Under-7 Chess Championship", startDate: "2026-06-30", endDate: "2026-07-04", city: "Nagpur", eloMin: 400, eloMax: 1400, format: "Classical", fee: 1500, regLink: "https://aicf.in/upcoming-nationals/", brochure: "https://aicf.in/wp-content/uploads/2026/06/Revised-Circular-of-National-Under-7-Chess-Championships-2026.pdf" }
+            { id: 4, title: "National Under-7 Chess Championship", startDate: "2026-06-30", endDate: "2027-07-04", city: "Nagpur", eloMin: 400, eloMax: 1400, format: "Classical", fee: 1500, regLink: "https://aicf.in", brochure: "#" }
         ];
 
         function sanitize(str) {
@@ -383,7 +404,7 @@
                 tournaments = [...savedData, ...tournaments.filter(t => !savedData.some(s => s.id === t.id))];
             }
             const today = new Date();
-            today.setHours(0, 0, 0, 0);
+            today.setHours(0,0,0,0);
             tournaments = tournaments.filter(t => new Date(t.endDate) >= today);
             updateStats();
         }
@@ -405,7 +426,6 @@
             const isLight = document.body.classList.contains('light');
             document.getElementById('darkModeBtn').textContent = isLight ? "🌙" : "☀️";
             
-            // Re-run matching list rendering filters to apply text fixes safely
             const activeSection = document.querySelector('.section.active');
             if (activeSection && activeSection.id === 'tournaments') filterTournaments();
             if (activeSection && activeSection.id === 'saved') renderSaved();
@@ -445,7 +465,7 @@
             const start = new Date(startDate);
             today.setHours(0,0,0,0);
             start.setHours(0,0,0,0);
-            const diff = Math.ceil((start - today) / (86400000));
+            const diff = Math.ceil((start - today) / 86400000);
             if (diff < 0) return "⏳ Live Now";
             if (diff === 0) return "⚡ Starts Today";
             if (diff === 1) return "📅 Starts Tomorrow";
@@ -454,73 +474,103 @@
 
         function renderTournaments(data, containerId = 'tournamentsList') {
             const container = document.getElementById(containerId);
+            if (!container) return;
             container.innerHTML = '';
+            
             if (data.length === 0) {
                 container.innerHTML = `
-                    <div class="col-span-1 md:col-span-3 text-center py-16 bg-slate-900/20 rounded-2xl border border-dashed border-white/5">
+                    <div class="col-span-1 md:col-span-3 text-center py-16 bg-zinc-900/20 rounded-2xl border border-dashed border-white/5">
                         <p class="text-3xl mb-2">📡</p>
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">No active tournament records match selection vectors.</p>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">No active tournament records match selection parameters.</p>
                     </div>`;
                 return;
             }
+            
             data.forEach(t => {
-                const featured = isFeatured(t) ? `<div class="absolute top-4 right-4 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white text-[9px] tracking-widest font-black px-3 py-1 rounded-md shadow-lg shadow-purple-500/20">GM FIELD</div>` : '';
-                const heartClass = isSaved(t.id) ? 'fas fa-heart text-pink-500 scale-125' : 'far fa-heart text-slate-400';
+                const featuredTag = isFeatured(t) ? `<div class="absolute top-4 right-4 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white text-[9px] tracking-widest font-black px-3 py-1 rounded-md uppercase">GM Tier</div>` : '';
+                const savedIcon = isSaved(t.id) ? 'fas fa-heart text-rose-500' : 'far fa-heart text-slate-400 hover:text-rose-400';
                 
-                const html = `
-                    <div class="tournament-card rounded-2xl overflow-hidden relative shadow-lg flex flex-col justify-between">
+                container.innerHTML += `
+                    <div class="tournament-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between min-h-[280px]">
+                        ${featuredTag}
                         <div>
-                            <div class="h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
-                            ${featured}
-                            <div class="p-6">
-                                <div class="flex items-center gap-2 mb-4">
-                                    <span class="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-[10px] font-black px-2.5 py-1 rounded-md tracking-wider uppercase">${sanitize(t.format)}</span>
-                                    <span class="text-[11px] text-slate-400 font-bold">${formatDate(t.startDate)} — ${formatDate(t.endDate)}</span>
+                            <div class="flex gap-2 items-center mb-3">
+                                <span class="text-[10px] bg-zinc-800 text-indigo-400 font-extrabold px-2.5 py-1 rounded-md uppercase border border-white/5">${sanitize(t.format)}</span>
+                                <span class="text-[10px] text-slate-400 font-bold"><i class="fas fa-map-marker-alt text-indigo-400 mr-1.5"></i>${sanitize(t.city)}</span>
+                            </div>
+                            <h3 class="text-lg font-extrabold text-white leading-snug mb-2 hover:text-indigo-400 cursor-pointer transition" onclick="viewDetails(${t.id})">${sanitize(t.title)}</h3>
+                            <p class="text-xs text-slate-400 font-medium mb-4"><i class="far fa-calendar-alt mr-1"></i> ${formatDate(t.startDate)} - ${formatDate(t.endDate)}</p>
+                        </div>
+                        
+                        <div>
+                            <div class="border-t border-white/5 pt-4 mb-4 flex justify-between items-center text-xs">
+                                <div>
+                                    <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">ELO Rating</span>
+                                    <span class="font-extrabold text-slate-200">${t.eloMin || 0} - ${t.eloMax || 'Open'}</span>
                                 </div>
-                                <h3 class="text-lg font-black text-white tracking-tight mb-1 hover:text-indigo-400 transition cursor-pointer" onclick="viewTournament(${t.id})">${sanitize(t.title)}</h3>
-                                <div class="text-xs font-black text-emerald-400 tracking-wide mb-4">${getCountdown(t.startDate)}</div>
-                                
-                                <div class="flex items-center gap-1.5 text-xs text-slate-400 font-bold mb-4">
-                                    <i class="fas fa-map-pin text-pink-500"></i>
-                                    <span>${sanitize(t.city).toUpperCase()}</span>
-                                </div>
-
-                                <div class="grid grid-cols-2 gap-4 border-t border-white/5 py-4 mt-2 text-xs font-bold">
-                                    <div><span class="text-[9px] text-indigo-400 block uppercase tracking-wider mb-0.5">Rating Bounds</span>${Number(t.eloMin)}–${Number(t.eloMax)}</div>
-                                    <div><span class="text-[9px] text-indigo-400 block uppercase tracking-wider mb-0.5">Entry Pool</span>₹${Number(t.fee)}</div>
+                                <div class="text-right">
+                                    <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Entry Fee</span>
+                                    <span class="font-extrabold text-emerald-400">₹${t.fee || 'Free'}</span>
                                 </div>
                             </div>
+                            <div class="flex gap-2 items-center">
+                                <button onclick="viewDetails(${t.id})" class="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs transition border border-white/5 flex items-center justify-center gap-1.5">
+                                    <i class="fas fa-info-circle"></i> Info Deck
+                                </button>
+                                <button onclick="toggleSave(${t.id})" class="p-2.5 bg-zinc-800/50 hover:bg-zinc-800 rounded-xl border border-white/5 transition flex items-center justify-center">
+                                    <i class="${savedIcon}"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="px-6 pb-6 pt-2 flex gap-2 items-center">
-                            <button onclick="viewTournament(${t.id})" class="flex-1 text-center bg-slate-800 hover:bg-slate-700 text-white border border-white/5 py-2.5 rounded-xl font-black text-xs tracking-wider uppercase transition duration-200">Inspect</button>
-                            <a href="${sanitize(t.regLink)}" target="_blank" class="flex-1 text-center bg-gradient-to-r from-indigo-600 to-purple-600 hover:brightness-110 text-white py-2.5 rounded-xl font-black text-xs tracking-wider uppercase transition duration-200">Register</a>
-                            <button onclick="toggleSave(${t.id})" class="p-2.5 bg-slate-800/50 hover:bg-slate-800 rounded-xl transition duration-200 border border-white/5">
-                                <i class="${heartClass}"></i>
-                            </button>
-                        </div>
-                    </div>`;
-                container.innerHTML += html;
+                    </div>
+                `;
             });
         }
 
+        function showSection(event, sectionId) {
+            if (event) event.preventDefault();
+            
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) targetSection.classList.add('active');
+
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-nav'));
+            const activeLink = document.getElementById(`nav-${sectionId}`);
+            if (activeLink) activeLink.classList.add('active-nav');
+
+            if (sectionId === 'tournaments') filterTournaments();
+            if (sectionId === 'saved') renderSaved();
+            if (sectionId === 'manage') renderManage();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         function filterTournaments() {
-            const city = document.getElementById('searchCity').value.toLowerCase();
-            const elo = parseInt(document.getElementById('searchElo').value) || 0;
-            const format = document.getElementById('searchFormat').value;
+            const cityQuery = document.getElementById('searchCity').value.toLowerCase().trim();
+            const eloQuery = parseInt(document.getElementById('searchElo').value) || null;
+            const formatQuery = document.getElementById('searchFormat').value;
             const sortBy = document.getElementById('sortBy').value;
 
-            let filtered = tournaments.filter(t =>
-                (!city || t.city.toLowerCase().includes(city)) &&
-                (!elo || (t.eloMin <= elo && t.eloMax >= elo)) &&
-                (!format || t.format === format)
-            );
+            let filtered = tournaments.filter(t => {
+                const matchesCity = !cityQuery || t.city.toLowerCase().includes(cityQuery);
+                const matchesFormat = !formatQuery || t.format === formatQuery;
+                let matchesElo = true;
+                if (eloQuery !== null) {
+                    matchesElo = (eloQuery >= (t.eloMin || 0)) && (eloQuery <= (t.eloMax || 3000));
+                }
+                return matchesCity && matchesFormat && matchesElo;
+            });
 
-            if (sortBy === 'startDate') filtered.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-            else if (sortBy === 'fee') filtered.sort((a, b) => a.fee - b.fee);
-            else if (sortBy === 'eloMax') filtered.sort((a, b) => b.eloMax - a.eloMax);
+            if (sortBy === 'startDate') {
+                filtered.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+            } else if (sortBy === 'fee') {
+                filtered.sort((a, b) => (a.fee || 0) - (b.fee || 0));
+            } else if (sortBy === 'eloMax') {
+                filtered.sort((a, b) => (b.eloMax || 0) - (a.eloMax || 0));
+            }
 
-            renderTournaments(filtered);
-            document.getElementById('resultsCount').textContent = `// ${filtered.length} BATTLES TRACKED`;
+            document.getElementById('resultsCount').textContent = `Index Vector Yields: ${filtered.length} Matches Found`;
+            renderTournaments(filtered, 'tournamentsList');
         }
 
         function resetFilters() {
@@ -531,183 +581,180 @@
             filterTournaments();
         }
 
-        function addTournament(e) {
-            e.preventDefault();
-            const newTournament = {
-                id: Date.now(),
-                title: document.getElementById('title').value,
-                startDate: document.getElementById('startDate').value,
-                endDate: document.getElementById('endDate').value,
-                city: document.getElementById('city').value,
-                eloMin: parseInt(document.getElementById('eloMin').value) || 1000,
-                eloMax: parseInt(document.getElementById('eloMax').value) || 2200,
-                format: document.getElementById('format').value,
-                fee: parseInt(document.getElementById('fee').value) || 1500,
-                regLink: document.getElementById('regLink').value,
-                brochure: document.getElementById('brochure').value || "#"
-            };
-            tournaments.unshift(newTournament);
-            saveData();
-            alert("🎉 Target Matrix Stream Loaded Successfully!");
-            e.target.reset();
-            showSection(null, 'tournaments');
-        }
-
         function renderSaved() {
             const savedIds = JSON.parse(localStorage.getItem('savedTournaments')) || [];
-            const savedTourneys = tournaments.filter(t => savedIds.includes(t.id));
-            renderTournaments(savedTourneys, 'savedList');
+            const savedData = tournaments.filter(t => savedIds.includes(t.id));
+            renderTournaments(savedData, 'savedList');
         }
 
         function updateSavedCount() {
-            const count = (JSON.parse(localStorage.getItem('savedTournaments')) || []).length;
-            const el = document.getElementById('savedCount');
-            if (el) {
-                el.textContent = count;
-                if (count > 0) el.classList.remove('hidden');
-                else el.classList.add('hidden');
+            const savedIds = JSON.parse(localStorage.getItem('savedTournaments')) || [];
+            const counter = document.getElementById('savedCount');
+            if (savedIds.length > 0) {
+                counter.textContent = savedIds.length;
+                counter.classList.remove('hidden');
+            } else {
+                counter.classList.add('hidden');
             }
         }
 
-        function submitSuggestion(e) {
-            e.preventDefault();
-            const name = document.getElementById('suggestName').value.trim();
-            const email = document.getElementById('suggestEmail').value.trim();
-            const message = document.getElementById('suggestMessage').value.trim();
-            if (!message) return;
-
-            const body = `From: ${name || "Anonymous"}\nEmail: ${email || "N/A"}\n\n${message}`;
-            window.location.href = `mailto:virensheoran2012@gmail.com?subject=ChessEvents Optimization Payload&body=${encodeURIComponent(body)}`;
-            e.target.reset();
+        function submitSuggestion(event) {
+            event.preventDefault();
+            alert("Telemetry structural packet transmitted into main pipeline channels successfully.");
+            event.target.reset();
+            showSection(null, 'home');
         }
 
-        function deleteTournament(id) {
-            const pass = prompt("Enter Clearance Override Signature Key:");
-            if (btoa(pass) !== ENCODED_PASS) return alert("❌ Execution Signature Mismatch.");
-            if (!confirm("Purge selected dataset timeline from memory arrays?")) return;
-
-            tournaments = tournaments.filter(t => t.id !== id);
-            saveData();
-            renderManage();
-            filterTournaments();
-        }
-
+        let isAdminAuthenticated = false;
         function renderManage() {
+            if (!isAdminAuthenticated) {
+                const credential = prompt("Enter Sys-Admin Authentication Passcode:");
+                if (credential === atob(ENCODED_PASS)) {
+                    isAdminAuthenticated = true;
+                } else {
+                    alert("Access Denied: Invalid Security Signature.");
+                    showSection(null, 'home');
+                    return;
+                }
+            }
+
             const container = document.getElementById('manageList');
+            if (!container) return;
             container.innerHTML = '';
+
             if (tournaments.length === 0) {
-                container.innerHTML = `<p class="text-xs font-bold text-slate-500 text-center py-4 tracking-widest">// DATA STORAGE CACHE EMPTY</p>`;
+                container.innerHTML = `<p class="text-xs text-center text-slate-500 py-6 uppercase font-bold tracking-wider">Database clear. No active records array found.</p>`;
                 return;
             }
+
             tournaments.forEach(t => {
-                const div = document.createElement('div');
-                div.className = "flex justify-between items-center bg-slate-800/30 border border-white/5 p-4 rounded-xl transition";
-                div.innerHTML = `
-                    <div>
-                        <h3 class="font-extrabold text-sm text-white">${sanitize(t.title)}</h3>
-                        <p class="text-[10px] uppercase font-black text-slate-500 tracking-wider mt-0.5">${sanitize(t.city)} • ${sanitize(t.format)} • ₹${Number(t.fee)}</p>
+                container.innerHTML += `
+                    <div class="bg-zinc-800/30 border border-white/5 rounded-xl p-4 flex justify-between items-center gap-4">
+                        <div>
+                            <h4 class="font-extrabold text-white text-sm">${sanitize(t.title)}</h4>
+                            <p class="text-xs text-slate-400 font-medium">${sanitize(t.city)} • ${sanitize(t.format)} • ${formatDate(t.startDate)}</p>
+                        </div>
+                        <button onclick="deleteTournament(${t.id})" class="bg-rose-500/10 hover:bg-rose-500 border border-rose-500/20 text-rose-400 hover:text-white px-3 py-1.5 rounded-lg text-xs font-black transition tracking-wider uppercase">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
                     </div>
-                    <button onclick="deleteTournament(${t.id})" class="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs px-4 py-2 rounded-xl font-black tracking-widest uppercase transition">Purge</button>
                 `;
-                container.appendChild(div);
             });
         }
 
-        function viewTournament(id) {
-            const tournament = tournaments.find(t => t.id == id);
-            if (!tournament) return;
+        function deleteTournament(id) {
+            if (confirm("Confirm structural array row elimination logic execution?")) {
+                tournaments = tournaments.filter(t => t.id !== id);
+                saveData();
+                let saved = JSON.parse(localStorage.getItem('savedTournaments')) || [];
+                saved = saved.filter(s => s !== id);
+                localStorage.setItem('savedTournaments', JSON.stringify(saved));
+                updateSavedCount();
+                renderManage();
+            }
+        }
 
-            document.getElementById('detailsContainer').innerHTML = `
-                <div class="bg-slate-900/80 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
-                    <button onclick="showSection(event, 'tournaments')" class="mb-6 bg-slate-800 hover:bg-slate-700 text-white border border-white/10 px-4 py-2 rounded-xl font-black text-xs tracking-widest uppercase transition">← Return to Stream</button>
+        function addTournament(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('title').value.trim();
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const city = document.getElementById('city').value.trim();
+            const eloMin = parseInt(document.getElementById('eloMin').value) || 0;
+            const eloMax = parseInt(document.getElementById('eloMax').value) || 3000;
+            const format = document.getElementById('format').value;
+            const fee = parseInt(document.getElementById('fee').value) || 0;
+            const regLink = document.getElementById('regLink').value.trim();
+            const brochure = document.getElementById('brochure').value.trim() || '#';
 
-                    <h2 class="text-3xl font-black text-white mb-6 tracking-tight leading-tight">${sanitize(tournament.title)}</h2>
+            if (new Date(startDate) > new Date(endDate)) {
+                alert("Temporal parameters collision: Start sequence data timeline cannot follow the End sequence.");
+                return;
+            }
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-xs font-bold text-slate-300">
-                        <div class="bg-slate-800/30 p-4 rounded-xl border border-white/5"><span class="text-[9px] block font-black text-indigo-400 uppercase tracking-widest mb-1">Target Arena Deck</span>${sanitize(tournament.city).toUpperCase()}</div>
-                        <div class="bg-slate-800/30 p-4 rounded-xl border border-white/5"><span class="text-[9px] block font-black text-indigo-400 uppercase tracking-widest mb-1">Ecosystem Variant</span>${sanitize(tournament.format).toUpperCase()}</div>
-                        <div class="bg-slate-800/30 p-4 rounded-xl border border-white/5"><span class="text-[9px] block font-black text-indigo-400 uppercase tracking-widest mb-1">Opening Bell Timeline</span>${formatDate(tournament.startDate)}</div>
-                        <div class="bg-slate-800/30 p-4 rounded-xl border border-white/5"><span class="text-[9px] block font-black text-indigo-400 uppercase tracking-widest mb-1">Final Wrap Timeline</span>${formatDate(tournament.endDate)}</div>
-                        <div class="bg-slate-800/30 p-4 rounded-xl border border-white/5"><span class="text-[9px] block font-black text-indigo-400 uppercase tracking-widest mb-1">Elo Parameter Bounds</span>${Number(tournament.eloMin)} - ${Number(tournament.eloMax)}</div>
-                        <div class="bg-slate-800/30 p-4 rounded-xl border border-white/5"><span class="text-[9px] block font-black text-indigo-400 uppercase tracking-widest mb-1">Access Token Stake</span>₹${Number(tournament.fee)}</div>
+            const newTournament = { id: Date.now(), title, startDate, endDate, city, eloMin, eloMax, format, fee, regLink, brochure };
+            tournaments.push(newTournament);
+            saveData();
+            event.target.reset();
+            alert("New competitive ecosystem entity appended to runtime registry pool successfully.");
+            showSection(null, 'tournaments');
+        }
+
+        function viewDetails(id) {
+            const t = tournaments.find(item => item.id === id);
+            if (!t) return;
+
+            const container = document.getElementById('detailsContainer');
+            const countdown = getCountdown(t.startDate);
+            const savedIcon = isSaved(t.id) ? 'fas fa-heart text-rose-500' : 'far fa-heart text-slate-400';
+
+            container.innerHTML = `
+                <div class="bg-zinc-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl overflow-hidden relative">
+                    <div class="p-8 md:p-12 border-b border-white/5 bg-gradient-to-br from-zinc-900 via-zinc-900 to-indigo-950/20">
+                        <div class="flex flex-wrap gap-2 items-center mb-4">
+                            <span class="text-xs bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-black px-3 py-1 rounded-md uppercase tracking-wider">${sanitize(t.format)}</span>
+                            <span class="text-xs bg-zinc-800 text-slate-300 font-bold px-3 py-1 rounded-md"><i class="fas fa-map-marker-alt text-indigo-400 mr-1.5"></i>${sanitize(t.city)}</span>
+                            <span class="text-xs bg-purple-500/10 text-purple-300 font-bold px-3 py-1 rounded-md">${countdown}</span>
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4">${sanitize(t.title)}</h2>
+                        <p class="text-slate-400 text-sm md:text-base font-medium flex items-center gap-2"><i class="far fa-calendar-alt text-indigo-400"></i> Frame Sequence: ${formatDate(t.startDate)} to ${formatDate(t.endDate)}</p>
                     </div>
-
-                    <div class="flex gap-3 flex-wrap">
-                        <a href="${sanitize(tournament.regLink)}" target="_blank" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-6 py-3.5 rounded-xl text-xs font-black tracking-widest uppercase transition shadow-lg shadow-purple-500/20">Secure Entry Stream</a>
-                        <button onclick="navigator.clipboard.writeText(window.location.href);alert('Pathway hash linked to core operational system clipboard.')" class="bg-slate-800 hover:bg-slate-700 border border-white/10 text-white px-6 py-3.5 rounded-xl text-xs font-black tracking-widest uppercase transition">Share Routing Hash</button>
+                    
+                    <div class="p-8 md:p-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="md:col-span-2 space-y-6">
+                            <div>
+                                <h3 class="text-lg font-black text-white mb-3">Operational Parameter Metrics</h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="bg-zinc-800/30 border border-white/5 p-4 rounded-xl">
+                                        <span class="text-slate-400 text-[10px] uppercase font-bold tracking-wider block mb-0.5">Rating Bracket Matrix</span>
+                                        <span class="font-extrabold text-white">${t.eloMin} - ${t.eloMax} ELO Target Limits</span>
+                                    </div>
+                                    <div class="bg-zinc-800/30 border border-white/5 p-4 rounded-xl">
+                                        <span class="text-slate-400 text-[10px] uppercase font-bold tracking-wider block mb-0.5">Access Toll Gateway Fee</span>
+                                        <span class="font-extrabold text-emerald-400">₹${t.fee} INR</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="pt-4">
+                                <h3 class="text-lg font-black text-white mb-3">Protocol Documents & Downloads</h3>
+                                <div class="flex flex-wrap gap-3">
+                                    <a href="${sanitize(t.brochure)}" target="_blank" class="bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs py-3 px-5 rounded-xl border border-white/5 transition inline-flex items-center gap-2">
+                                        <i class="fas fa-file-pdf text-rose-400"></i> Open Structural Circular Brochure
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-zinc-800/20 border border-white/5 p-6 rounded-2xl flex flex-col justify-between space-y-6">
+                            <div>
+                                <h4 class="font-black text-white text-sm uppercase tracking-wider mb-2">Registry Terminal</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed font-medium">Verify structural credentials via federated system pathways to reserve matrix placement grids.</p>
+                            </div>
+                            <div class="space-y-3">
+                                <a href="${sanitize(t.regLink)}" target="_blank" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-center text-white py-3.5 font-black rounded-xl text-xs shadow-lg block transition hover:brightness-110">
+                                    <i class="fas fa-external-link-alt mr-1.5"></i> Initialize Gateway Sync
+                                </a>
+                                <button onclick="toggleSave(${t.id}); viewDetails(${t.id});" class="w-full bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs py-3 rounded-xl border border-white/5 transition flex items-center justify-center gap-2">
+                                    <i class="${savedIcon}"></i> Bookmark Watchlist Index
+                                </button>
+                                <button onclick="showSection(null, 'tournaments')" class="w-full text-slate-400 hover:text-white font-bold text-xs py-2 transition text-center block">
+                                    <i class="fas fa-arrow-left mr-1"></i> Return to Feed Matrix
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `;
 
-            if (!window.location.search.includes(`tournament=${id}`)) {
-                history.pushState({ section: 'details', id: id }, '', '?tournament=' + id);
-            }
-            
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById('details').classList.add('active');
-            updateNavHighlights('tournaments');
+            showSection(null, 'details');
         }
 
-        function updateNavHighlights(sectionId) {
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active-nav'));
-            const targetNavLink = document.getElementById(`nav-${sectionId}`);
-            if (targetNavLink) targetNavLink.classList.add('active-nav');
-        }
-
-        function showSection(e, section) {
-            if (e) e.preventDefault();
-
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            const element = document.getElementById(section);
-            if (element) element.classList.add('active');
-
-            updateNavHighlights(section);
-
-            if (section === 'tournaments') filterTournaments();
-            else if (section === 'saved') renderSaved();
-            else if (section === 'manage') renderManage();
-
-            if (section !== 'details') {
-                history.pushState({ section: section }, '', `?tab=${section}`);
-            }
-        }
-
-        window.onpopstate = function(event) {
-            const params = new URLSearchParams(window.location.search);
-            const tournamentId = params.get('tournament');
-            const activeTab = params.get('tab');
-
-            if (tournamentId) {
-                viewTournament(tournamentId);
-            } else if (activeTab) {
-                showSection(null, activeTab);
-            } else {
-                showSection(null, 'home');
-            }
-        };
-
-        window.onload = () => {
+        window.addEventListener('DOMContentLoaded', () => {
             loadData();
             updateSavedCount();
-            
-            const params = new URLSearchParams(window.location.search);
-            const tournamentId = params.get('tournament');
-            const activeTab = params.get('tab');
-
-            if (tournamentId) {
-                const found = tournaments.find(t => t.id == tournamentId);
-                if (found) { 
-                    viewTournament(found.id); 
-                    return; 
-                }
-            }
-            
-            if (activeTab) {
-                showSection(null, activeTab);
-            } else {
-                showSection(null, 'home');
-            }
-        };
+        });
     </script>
 </body>
 </html>
