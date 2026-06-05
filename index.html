@@ -38,6 +38,12 @@
         .badge {
             background: linear-gradient(90deg, #eab308, #f59e0b);
         }
+        .guide-step {
+            transition: all 0.3s ease;
+        }
+        .guide-step:hover {
+            transform: translateX(10px);
+        }
     </style>
 </head>
 <body>
@@ -51,10 +57,11 @@
                     <p class="text-xs text-gray-500 -mt-1">Find • Play • Win</p>
                 </div>
             </div>
-            <div class="flex gap-10 text-lg font-semibold text-gray-700">
+            <div class="flex gap-8 text-lg font-semibold text-gray-700">
                 <a href="#" onclick="showSection('home')" class="hover:text-indigo-600 transition">Home</a>
                 <a href="#" onclick="showSection('tournaments')" class="hover:text-indigo-600 transition">Tournaments</a>
                 <a href="#" onclick="showSection('saved')" class="hover:text-indigo-600 transition">Saved <span id="savedCount" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full"></span></a>
+                <a href="#" onclick="showSection('guide')" class="hover:text-indigo-600 transition">How to Use</a>
                 <a href="#" onclick="showSection('add')" class="hover:text-indigo-600 transition">List Event</a>
             </div>
         </div>
@@ -108,6 +115,50 @@
         <div id="savedList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
     </section>
 
+    <!-- How to Use -->
+    <section id="guide" class="section max-w-4xl mx-auto px-6 py-16">
+        <div class="bg-white rounded-3xl shadow-2xl p-12">
+            <h2 class="text-5xl font-bold text-gray-800 mb-10 text-center">How to Use ChessEvents</h2>
+            <div class="space-y-12">
+                <div class="guide-step flex gap-8">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">🔍</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-3">1. Browse Tournaments</h3>
+                        <p class="text-gray-600">Visit the <strong>Tournaments</strong> tab to explore all upcoming chess events.</p>
+                    </div>
+                </div>
+                <div class="guide-step flex gap-8">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">🎯</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-3">2. Filter & Search</h3>
+                        <p class="text-gray-600">Use city, Elo rating, format, and sorting options to find the right tournament for you.</p>
+                    </div>
+                </div>
+                <div class="guide-step flex gap-8">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">❤️</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-3">3. Save / Unsave Events</h3>
+                        <p class="text-gray-600">Click the heart button <strong>❤️ / ♡</strong> to save a tournament. Click again to unsave. View them in the <strong>Saved</strong> tab.</p>
+                    </div>
+                </div>
+                <div class="guide-step flex gap-8">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">📝</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-3">4. Register Easily</h3>
+                        <p class="text-gray-600">Click <strong>"Register Now"</strong> to open the official registration link.</p>
+                    </div>
+                </div>
+                <div class="guide-step flex gap-8">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">📢</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-3">5. List Your Own Event</h3>
+                        <p class="text-gray-600">Go to <strong>List Event</strong> and publish your tournament instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Add Event -->
     <section id="add" class="section max-w-3xl mx-auto px-6 py-20">
         <div class="bg-white rounded-3xl shadow-2xl p-14">
@@ -151,7 +202,6 @@
             if (savedData.length > 0) {
                 tournaments = [...savedData, ...tournaments.filter(t => !savedData.some(s => s.id === t.id))];
             }
-
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             tournaments = tournaments.filter(t => new Date(t.endDate) >= today);
@@ -170,7 +220,7 @@
             let saved = JSON.parse(localStorage.getItem('savedTournaments')) || [];
             if (saved.includes(id)) {
                 saved = saved.filter(s => s !== id);
-                alert("💔 Tournament removed from saved list.");
+                alert("💔 Removed from saved list.");
             } else {
                 saved.push(id);
                 alert("❤️ Tournament saved!");
@@ -178,13 +228,9 @@
             localStorage.setItem('savedTournaments', JSON.stringify(saved));
             updateSavedCount();
 
-            // Refresh current view
             const activeSection = document.querySelector('.section.active').id;
-            if (activeSection === 'tournaments') {
-                filterTournaments();
-            } else if (activeSection === 'saved') {
-                renderSaved();
-            }
+            if (activeSection === 'tournaments') filterTournaments();
+            else if (activeSection === 'saved') renderSaved();
         }
 
         function formatDate(dateStr) {
@@ -210,16 +256,13 @@
         function renderTournaments(data, containerId = 'tournamentsList') {
             const container = document.getElementById(containerId);
             container.innerHTML = '';
-
             if (data.length === 0) {
                 container.innerHTML = `<div class="col-span-3 text-center py-20"><p class="text-4xl mb-4">😕</p><p class="text-xl text-gray-600">No tournaments found.</p></div>`;
                 return;
             }
-
             data.forEach(t => {
-                const featured = isFeatured(t) ? `<div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-4 py-1.5 rounded-full flex items-center gap-1">🔥 FEATURED</div>` : '';
+                const featured = isFeatured(t) ? `<div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-4 py-1.5 rounded-full">🔥 FEATURED</div>` : '';
                 const heartIcon = isSaved(t.id) ? '❤️' : '♡';
-                
                 const html = `
                     <div class="tournament-card bg-white rounded-3xl overflow-hidden border border-gray-100 relative">
                         <div class="h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
@@ -241,9 +284,7 @@
                             <div class="flex gap-4">
                                 <a href="${t.regLink}" target="_blank" class="flex-1 text-center bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-semibold">Register Now</a>
                                 ${t.brochure && t.brochure !== "#" ? `<a href="${t.brochure}" target="_blank" class="flex-1 text-center bg-red-600 hover:bg-red-700 text-white py-4 rounded-2xl font-semibold">📄 Brochure</a>` : ''}
-                                <button onclick="toggleSave(${t.id})" class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-4 rounded-2xl font-bold text-2xl transition">
-                                    ${heartIcon}
-                                </button>
+                                <button onclick="toggleSave(${t.id})" class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-4 rounded-2xl font-bold text-2xl">${heartIcon}</button>
                             </div>
                         </div>
                     </div>`;
@@ -295,7 +336,6 @@
                 regLink: document.getElementById('regLink').value,
                 brochure: document.getElementById('brochure').value || "#"
             };
-
             tournaments.unshift(newTournament);
             saveData();
             alert("🎉 Tournament published successfully!");
