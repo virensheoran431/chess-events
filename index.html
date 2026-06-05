@@ -62,6 +62,7 @@
                 <a href="#" onclick="showSection('tournaments')" class="hover:text-indigo-600 transition">Tournaments</a>
                 <a href="#" onclick="showSection('saved')" class="hover:text-indigo-600 transition">Saved <span id="savedCount" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full"></span></a>
                 <a href="#" onclick="showSection('guide')" class="hover:text-indigo-600 transition">How to Use</a>
+                <a href="#" onclick="showSection('suggestions')" class="hover:text-indigo-600 transition">Suggestions</a>
                 <a href="#" onclick="showSection('add')" class="hover:text-indigo-600 transition">List Event</a>
             </div>
         </div>
@@ -122,40 +123,46 @@
             <div class="space-y-12">
                 <div class="guide-step flex gap-8">
                     <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">🔍</div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-3">1. Browse Tournaments</h3>
-                        <p class="text-gray-600">Visit the <strong>Tournaments</strong> tab to explore all upcoming chess events.</p>
-                    </div>
+                    <div><h3 class="text-2xl font-bold mb-3">1. Browse Tournaments</h3><p class="text-gray-600">Visit the <strong>Tournaments</strong> tab to see all events.</p></div>
                 </div>
                 <div class="guide-step flex gap-8">
                     <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">🎯</div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-3">2. Filter & Search</h3>
-                        <p class="text-gray-600">Use city, Elo rating, format, and sorting options to find the right tournament for you.</p>
-                    </div>
+                    <div><h3 class="text-2xl font-bold mb-3">2. Filter & Search</h3><p class="text-gray-600">Use city, Elo rating, format, and sorting options.</p></div>
                 </div>
                 <div class="guide-step flex gap-8">
                     <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">❤️</div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-3">3. Save / Unsave Events</h3>
-                        <p class="text-gray-600">Click the heart button <strong>❤️ / ♡</strong> to save a tournament. Click again to unsave. View them in the <strong>Saved</strong> tab.</p>
-                    </div>
+                    <div><h3 class="text-2xl font-bold mb-3">3. Save / Unsave</h3><p class="text-gray-600">Click the heart button ❤️ / ♡ on any tournament.</p></div>
                 </div>
                 <div class="guide-step flex gap-8">
                     <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">📝</div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-3">4. Register Easily</h3>
-                        <p class="text-gray-600">Click <strong>"Register Now"</strong> to open the official registration link.</p>
-                    </div>
+                    <div><h3 class="text-2xl font-bold mb-3">4. Register</h3><p class="text-gray-600">Click "Register Now" to open registration link.</p></div>
                 </div>
                 <div class="guide-step flex gap-8">
                     <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">📢</div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-3">5. List Your Own Event</h3>
-                        <p class="text-gray-600">Go to <strong>List Event</strong> and publish your tournament instantly.</p>
-                    </div>
+                    <div><h3 class="text-2xl font-bold mb-3">5. List Your Event</h3><p class="text-gray-600">Use "List Event" tab to publish your tournament.</p></div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Suggestions -->
+    <section id="suggestions" class="section max-w-2xl mx-auto px-6 py-16">
+        <div class="bg-white rounded-3xl shadow-2xl p-12">
+            <h2 class="text-5xl font-bold text-gray-800 mb-8 text-center">Share Your Suggestions</h2>
+            <p class="text-center text-gray-600 mb-10">Help us make ChessEvents better!</p>
+            
+            <form id="suggestionForm" onsubmit="submitSuggestion(event)" class="space-y-6">
+                <input type="text" id="suggestName" placeholder="Your Name (optional)" class="w-full border-2 border-gray-200 p-6 rounded-3xl text-lg">
+                <input type="email" id="suggestEmail" placeholder="Your Email (optional)" class="w-full border-2 border-gray-200 p-6 rounded-3xl text-lg">
+                <textarea id="suggestMessage" rows="6" placeholder="Write your suggestion, feedback, or feature request here..." 
+                          class="w-full border-2 border-gray-200 p-6 rounded-3xl text-lg resize-y" required></textarea>
+                <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white py-7 text-2xl font-bold rounded-3xl hover:brightness-110">
+                    Send Suggestion
+                </button>
+            </form>
+            <p class="text-center text-sm text-gray-500 mt-8">
+                This will open your email client to send to <strong>virensheoran2012@gmail.com</strong>
+            </p>
         </div>
     </section>
 
@@ -191,10 +198,58 @@
 
     <script>
         let tournaments = [
-            { id: 1, title: "4th Gujarat International Open Grandmasters 2026", startDate: "2026-06-01", endDate: "2026-06-08", city: "Ahmedabad", eloMin: 1800, eloMax: 2800, format: "Classical", fee: 2500, regLink: "https://aicf.in", brochure: "https://aicf.in/wp-content/uploads/2026/04/Prospectus-Draft.pdf" },
-            { id: 2, title: "Meridian All India Open Rapid 2026", startDate: "2026-06-10", endDate: "2026-06-12", city: "Hyderabad", eloMin: 1000, eloMax: 2200, format: "Rapid", fee: 1200, regLink: "https://www.chesstelangana.com", brochure: "#" },
-            { id: 3, title: "13th BBCF International FIDE Rapid", startDate: "2026-06-20", endDate: "2026-06-20", city: "Bangalore", eloMin: 1200, eloMax: 2300, format: "Rapid", fee: 1500, regLink: "https://chessmii.com", brochure: "#" },
-            { id: 4, title: "National Under-7 Chess Championship", startDate: "2026-06-30", endDate: "2026-07-04", city: "Nagpur", eloMin: 400, eloMax: 1400, format: "Classical", fee: 1500, regLink: "https://aicf.in/upcoming-nationals/", brochure: "https://aicf.in/wp-content/uploads/2026/06/Revised-Circular-of-National-Under-7-Chess-Championships-2026.pdf" }
+            {
+                id: 1,
+                title: "4th Gujarat International Open Grandmasters 2026",
+                startDate: "2026-06-01",
+                endDate: "2026-06-08",
+                city: "Ahmedabad",
+                eloMin: 1800,
+                eloMax: 2800,
+                format: "Classical",
+                fee: 2500,
+                regLink: "https://aicf.in",
+                brochure: "https://aicf.in/wp-content/uploads/2026/04/Prospectus-Draft.pdf"
+            },
+            {
+                id: 2,
+                title: "Meridian All India Open Rapid 2026",
+                startDate: "2026-06-10",
+                endDate: "2026-06-12",
+                city: "Hyderabad",
+                eloMin: 1000,
+                eloMax: 2200,
+                format: "Rapid",
+                fee: 1200,
+                regLink: "https://www.chesstelangana.com",
+                brochure: "#"
+            },
+            {
+                id: 3,
+                title: "13th BBCF International FIDE Rapid",
+                startDate: "2026-06-20",
+                endDate: "2026-06-20",
+                city: "Bangalore",
+                eloMin: 1200,
+                eloMax: 2300,
+                format: "Rapid",
+                fee: 1500,
+                regLink: "https://chessmii.com",
+                brochure: "#"
+            },
+            {
+                id: 4,
+                title: "National Under-7 Chess Championship",
+                startDate: "2026-06-30",
+                endDate: "2026-07-04",
+                city: "Nagpur",
+                eloMin: 400,
+                eloMax: 1400,
+                format: "Classical",
+                fee: 1500,
+                regLink: "https://aicf.in/upcoming-nationals/",
+                brochure: "https://aicf.in/wp-content/uploads/2026/06/Revised-Circular-of-National-Under-7-Chess-Championships-2026.pdf"
+            }
         ];
 
         function loadData() {
@@ -353,6 +408,28 @@
             const count = (JSON.parse(localStorage.getItem('savedTournaments')) || []).length;
             const el = document.getElementById('savedCount');
             if (el) el.textContent = count > 0 ? count : '';
+        }
+
+        function submitSuggestion(e) {
+            e.preventDefault();
+            const name = document.getElementById('suggestName').value.trim();
+            const email = document.getElementById('suggestEmail').value.trim();
+            const message = document.getElementById('suggestMessage').value.trim();
+
+            if (!message) {
+                alert("Please write your suggestion.");
+                return;
+            }
+
+            let subject = "ChessEvents Suggestion";
+            let body = `Suggestion from: ${name || "Anonymous"}\n`;
+            if (email) body += `Email: ${email}\n\n`;
+            body += `Message:\n${message}`;
+
+            const mailtoLink = `mailto:virensheoran2012@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
+            e.target.reset();
+            alert("✅ Email client opened. Thank you for your suggestion!");
         }
 
         function showSection(section) {
