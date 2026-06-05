@@ -10,247 +10,372 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;600;800&display=swap');
+        
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: linear-gradient(to bottom, #f8fafc, #e0e7ff);
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            background: #0b0f19;
+            color: #f1f5f9;
+            transition: background 0.4s ease, color 0.4s ease;
         }
+        
+        /* Cyber Neon Hero Gradients */
         .hero-bg {
-            background: linear-gradient(135deg, #1e3a8a 0%, #4338ca 100%);
+            background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent),
+                        radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.15), transparent),
+                        #111827;
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .hero-bg::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url('https://source.unsplash.com/random/1920x1080/?chess') center/cover;
-            opacity: 0.15;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?q=80&w=1920') center/cover;
+            opacity: 0.08;
+            mix-blend-mode: overlay;
         }
+        
+        /* Glassmorphism Cards with Neon Glows */
         .tournament-card {
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .tournament-card:hover {
-            transform: translateY(-20px) scale(1.04);
-            box-shadow: 0 35px 70px -15px rgb(0 0 0 / 0.25);
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.3);
+            background: rgba(30, 41, 59, 0.7);
         }
-        .section { display: none; }
-        .active { display: block; }
-        .badge {
-            background: linear-gradient(90deg, #eab308, #f59e0b);
+
+        /* Smooth Stage Switches */
+        .section { 
+            opacity: 0;
+            transform: translateY(20px) scale(0.98);
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .guide-step {
+        .section.active { 
+            opacity: 1;
+            transform: translateY(0 scale(1));
+            pointer-events: auto;
+            position: relative;
+        }
+        .sections-container {
+            position: relative;
+            min-height: 70vh;
+        }
+
+        /* Interactive Animated Nav Tags */
+        .nav-link {
+            position: relative;
+            color: #94a3b8;
             transition: all 0.3s ease;
         }
-        .guide-step:hover {
-            transform: translateX(10px);
+        .nav-link:hover {
+            color: #a855f7;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+        .nav-link.active-nav {
+            color: #6366f1;
+            text-shadow: 0 0 15px rgba(99, 102, 241, 0.6);
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -6px;
+            left: 0;
+            border-radius: 99px;
+            background: linear-gradient(to right, #6366f1, #a855f7);
+            box-shadow: 0 2px 10px rgba(99, 102, 241, 0.5);
+            transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .nav-link.active-nav:after { 
+            width: 100%; 
+        }
+
+        /* Premium Light Mode Overrides with dynamic color fixes */
+        body.light {
+            background: #f4f6fa !important;
+            color: #1e293b !important;
+        }
+        body.light nav {
+            background-color: rgba(255, 255, 255, 0.85) !important;
+            border-color: #cbd5e1 !important;
+        }
+        body.light .hero-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%) !important;
+            border-color: #cbd5e1 !important;
+        }
+        body.light .tournament-card {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+        }
+        body.light .tournament-card:hover {
+            border-color: #6366f1 !important;
+            box-shadow: 0 20px 30px -10px rgba(99, 102, 241, 0.15) !important;
+        }
+        body.light .tournament-card h3,
+        body.light .section h2,
+        body.light .section h3,
+        body.light #manage h3 {
+            color: #0f172a !important;
+        }
+        body.light .bg-slate-900\/60, 
+        body.light .bg-slate-900\/50,
+        body.light .bg-slate-900\/80 {
+            background-color: #ffffff !important;
+            border-color: #e2e8f0 !important;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05) !important;
+        }
+        body.light input, body.light select, body.light textarea {
+            background-color: #f8fafc !important;
+            color: #0f172a !important;
+            border-color: #cbd5e1 !important;
+        }
+        body.light input::placeholder, body.light textarea::placeholder {
+            color: #94a3b8 !important;
+        }
+        body.light .text-slate-400, body.light .text-slate-300 { 
+            color: #475569 !important; 
+        }
+        body.light .bg-slate-800\/30 {
+            background-color: #f8fafc !important;
+            border-color: #e2e8f0 !important;
+        }
+        body.light .bg-slate-800 {
+            background-color: #e2e8f0 !important;
+            color: #0f172a !important;
+            border-color: #cbd5e1 !important;
+        }
+        body.light .bg-slate-800:hover {
+            background-color: #cbd5e1 !important;
         }
     </style>
 </head>
-<body>
-    <!-- Navbar -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <span class="text-5xl">♟️</span>
+<body class="antialiased">
+
+    <nav class="bg-slate-900/40 backdrop-blur-xl border-b border-white/5 sticky top-0 z-50 transition-all">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="showSection(event, 'home')">
+                <span class="text-4xl animate-pulse">♟️</span>
                 <div>
-                    <h1 class="text-4xl font-bold text-indigo-700">ChessEvents</h1>
-                    <p class="text-xs text-gray-500 -mt-1">Find • Play • Win</p>
+                    <h1 class="text-2xl font-black tracking-tighter bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">ChessEvents</h1>
+                    <p class="text-[10px] uppercase font-extrabold tracking-widest text-indigo-400/80 -mt-0.5">Control The Board</p>
                 </div>
             </div>
-            <div class="flex gap-8 text-lg font-semibold text-gray-700">
-                <a href="#" onclick="showSection('home')" class="hover:text-indigo-600 transition">Home</a>
-                <a href="#" onclick="showSection('tournaments')" class="hover:text-indigo-600 transition">Tournaments</a>
-                <a href="#" onclick="showSection('saved')" class="hover:text-indigo-600 transition">Saved <span id="savedCount" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full"></span></a>
-                <a href="#" onclick="showSection('guide')" class="hover:text-indigo-600 transition">How to Use</a>
-                <a href="#" onclick="showSection('suggestions')" class="hover:text-indigo-600 transition">Suggestions</a>
-                <a href="#" onclick="showSection('add')" class="hover:text-indigo-600 transition">List Event</a>
+            
+            <div class="flex gap-6 text-sm font-bold items-center">
+                <a href="#" onclick="showSection(event, 'home')" id="nav-home" class="nav-link active-nav">Home</a>
+                <a href="#" onclick="showSection(event, 'tournaments')" id="nav-tournaments" class="nav-link">Tournaments</a>
+                <a href="#" onclick="showSection(event, 'saved')" id="nav-saved" class="nav-link flex items-center gap-1.5">Saved <span id="savedCount" class="text-[10px] bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-black px-2 py-0.5 rounded-md hidden">0</span></a>
+                <a href="#" onclick="showSection(event, 'guide')" id="nav-guide" class="nav-link">How to Use</a>
+                <a href="#" onclick="showSection(event, 'suggestions')" id="nav-suggestions" class="nav-link">Suggestions</a>
+                <a href="#" onclick="showSection(event, 'manage')" id="nav-manage" class="nav-link">Manage</a>
+                <a href="#" onclick="showSection(event, 'add')" id="nav-add" class="nav-link px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-xl shadow-lg shadow-indigo-500/20 transition duration-300">List Event</a>
+                <button onclick="toggleDarkMode()" id="darkModeBtn" class="p-2.5 rounded-xl bg-slate-800 text-amber-400 hover:bg-slate-700 transition duration-200">☀️</button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <section id="home" class="section active hero-bg text-white py-32 text-center">
-        <div class="max-w-5xl mx-auto px-6 relative z-10">
-            <h1 class="text-7xl font-extrabold mb-6 leading-none">Your Next Move<br>Starts Here</h1>
-            <p class="text-3xl mb-12 max-w-3xl mx-auto">Discover exciting chess tournaments across India with direct registration</p>
-            <button onclick="showSection('tournaments')"
-                    class="bg-white text-indigo-700 px-14 py-6 rounded-3xl text-3xl font-bold shadow-2xl hover:scale-110 transition flex items-center gap-4 mx-auto">
-                <i class="fas fa-chess-knight"></i> Explore Tournaments
-            </button>
-        </div>
-    </section>
-
-    <!-- Tournaments Section -->
-    <section id="tournaments" class="section max-w-7xl mx-auto px-6 py-16">
-        <div class="flex justify-between items-center mb-12">
-            <h2 class="text-5xl font-bold text-gray-800">Live Tournaments in India</h2>
-            <div class="text-sm bg-yellow-100 text-yellow-700 px-5 py-3 rounded-2xl font-medium">Updated June 2026</div>
-        </div>
-
-        <!-- Filters -->
-        <div class="bg-white p-8 rounded-3xl shadow-xl mb-12 grid grid-cols-1 md:grid-cols-6 gap-6">
-            <input id="searchCity" placeholder="Search City" class="border-2 border-gray-200 p-6 rounded-3xl text-lg focus:border-indigo-500 outline-none">
-            <input id="searchElo" type="number" placeholder="Your Elo" class="border-2 border-gray-200 p-6 rounded-3xl text-lg focus:border-indigo-500 outline-none">
-            <select id="searchFormat" class="border-2 border-gray-200 p-6 rounded-3xl text-lg focus:border-indigo-500 outline-none">
-                <option value="">All Formats</option>
-                <option value="Classical">Classical</option>
-                <option value="Rapid">Rapid</option>
-                <option value="Blitz">Blitz</option>
-            </select>
-            <select id="sortBy" class="border-2 border-gray-200 p-6 rounded-3xl text-lg focus:border-indigo-500 outline-none">
-                <option value="startDate">Start Date</option>
-                <option value="fee">Fee (Low → High)</option>
-                <option value="eloMax">Rating (High → Low)</option>
-            </select>
-            <button onclick="filterTournaments()" class="bg-indigo-600 text-white rounded-3xl text-xl font-bold hover:bg-indigo-700">🔍 Search</button>
-            <button onclick="resetFilters()" class="border-2 border-gray-300 hover:bg-gray-100 rounded-3xl text-xl">Reset</button>
-        </div>
-
-        <p id="resultsCount" class="text-gray-600 font-medium mb-6"></p>
-        <div id="tournamentsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
-    </section>
-
-    <!-- Saved Tournaments -->
-    <section id="saved" class="section max-w-7xl mx-auto px-6 py-16">
-        <h2 class="text-5xl font-bold text-gray-800 mb-12">Saved Tournaments</h2>
-        <div id="savedList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
-    </section>
-
-    <!-- How to Use -->
-    <section id="guide" class="section max-w-4xl mx-auto px-6 py-16">
-        <div class="bg-white rounded-3xl shadow-2xl p-12">
-            <h2 class="text-5xl font-bold text-gray-800 mb-10 text-center">How to Use ChessEvents</h2>
-            <div class="space-y-12">
-                <div class="guide-step flex gap-8">
-                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">🔍</div>
-                    <div><h3 class="text-2xl font-bold mb-3">1. Browse Tournaments</h3><p class="text-gray-600">Visit the <strong>Tournaments</strong> tab to see all events.</p></div>
+    <div class="sections-container">
+        
+        <section id="home" class="section active">
+            <div class="max-w-7xl mx-auto px-6 pt-8 pb-16">
+                <div class="hero-bg rounded-[2.5rem] shadow-2xl py-24 px-12 text-center mb-12 border border-indigo-500/10">
+                    <div class="max-w-4xl mx-auto relative z-10">
+                        <span class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 inline-block">India's Ultimate Chess Hub • 2026</span>
+                        <h1 class="text-6xl md:text-7xl font-black mb-6 tracking-tight leading-none text-white">MAKE YOUR NEXT<br><span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">ELITE MOVE</span></h1>
+                        <p class="text-lg text-slate-300 mb-10 max-w-2xl mx-auto font-medium">Instantly tap into premium FIDE Rated, Rapid, and classical tournaments across India with direct zero-friction registrations.</p>
+                        <button onclick="showSection(event, 'tournaments')" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-10 py-4 rounded-xl text-md font-extrabold shadow-xl shadow-purple-500/20 hover:scale-[1.05] hover:shadow-purple-500/40 transition duration-300 flex items-center gap-3 mx-auto">
+                            <i class="fas fa-crosshairs text-lg"></i> Launch Tournament Map
+                        </button>
+                    </div>
                 </div>
-                <div class="guide-step flex gap-8">
-                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">🎯</div>
-                    <div><h3 class="text-2xl font-bold mb-3">2. Filter & Search</h3><p class="text-gray-600">Use city, Elo rating, format, and sorting options.</p></div>
-                </div>
-                <div class="guide-step flex gap-8">
-                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">❤️</div>
-                    <div><h3 class="text-2xl font-bold mb-3">3. Save / Unsave</h3><p class="text-gray-600">Click the heart button ❤️ / ♡ on any tournament.</p></div>
-                </div>
-                <div class="guide-step flex gap-8">
-                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">📝</div>
-                    <div><h3 class="text-2xl font-bold mb-3">4. Register</h3><p class="text-gray-600">Click "Register Now" to open registration link.</p></div>
-                </div>
-                <div class="guide-step flex gap-8">
-                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">📢</div>
-                    <div><h3 class="text-2xl font-bold mb-3">5. List Your Event</h3><p class="text-gray-600">Use "List Event" tab to publish your tournament.</p></div>
+
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-slate-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
+                        <div class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xl rounded-xl flex items-center justify-center shadow-inner">⚡</div>
+                        <div><div class="text-3xl font-black text-indigo-400" id="statTotal">0</div><div class="text-slate-400 text-xs font-bold uppercase tracking-wider">Total Battles</div></div>
+                    </div>
+                    <div class="bg-slate-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
+                        <div class="w-12 h-12 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xl rounded-xl flex items-center justify-center shadow-inner">🔥</div>
+                        <div><div class="text-3xl font-black text-amber-400" id="statRapid">0</div><div class="text-slate-400 text-xs font-bold uppercase tracking-wider">Rapid Arenas</div></div>
+                    </div>
+                    <div class="bg-slate-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
+                        <div class="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xl rounded-xl flex items-center justify-center shadow-inner">🏆</div>
+                        <div><div class="text-3xl font-black text-emerald-400" id="statClassical">0</div><div class="text-slate-400 text-xs font-bold uppercase tracking-wider">Classical Pools</div></div>
+                    </div>
+                    <div class="bg-slate-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
+                        <div class="w-12 h-12 bg-pink-500/10 border border-pink-500/20 text-pink-400 text-xl rounded-xl flex items-center justify-center shadow-inner">👑</div>
+                        <div><div class="text-3xl font-black text-pink-400" id="statFeatured">0</div><div class="text-slate-400 text-xs font-bold uppercase tracking-wider">Grandmaster Tier</div></div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Suggestions -->
-    <section id="suggestions" class="section max-w-2xl mx-auto px-6 py-16">
-        <div class="bg-white rounded-3xl shadow-2xl p-12">
-            <h2 class="text-5xl font-bold text-gray-800 mb-8 text-center">Share Your Suggestions</h2>
-            <p class="text-center text-gray-600 mb-10">Help us make ChessEvents better!</p>
-            
-            <form id="suggestionForm" onsubmit="submitSuggestion(event)" class="space-y-6">
-                <input type="text" id="suggestName" placeholder="Your Name (optional)" class="w-full border-2 border-gray-200 p-6 rounded-3xl text-lg">
-                <input type="email" id="suggestEmail" placeholder="Your Email (optional)" class="w-full border-2 border-gray-200 p-6 rounded-3xl text-lg">
-                <textarea id="suggestMessage" rows="6" placeholder="Write your suggestion, feedback, or feature request here..." 
-                          class="w-full border-2 border-gray-200 p-6 rounded-3xl text-lg resize-y" required></textarea>
-                <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white py-7 text-2xl font-bold rounded-3xl hover:brightness-110">
-                    Send Suggestion
-                </button>
-            </form>
-            <p class="text-center text-sm text-gray-500 mt-8">
-                This will open your email client to send to <strong>virensheoran2012@gmail.com</strong>
-            </p>
-        </div>
-    </section>
-
-    <!-- Add Event -->
-    <section id="add" class="section max-w-3xl mx-auto px-6 py-20">
-        <div class="bg-white rounded-3xl shadow-2xl p-14">
-            <h2 class="text-4xl font-bold text-center mb-12">Host Your Own Tournament</h2>
-            <form onsubmit="addTournament(event)" class="space-y-8">
-                <input id="title" type="text" placeholder="Tournament Title *" required class="w-full border-2 p-6 rounded-3xl text-lg">
-                <div class="grid grid-cols-2 gap-6">
-                    <input id="startDate" type="date" required class="border-2 p-6 rounded-3xl">
-                    <input id="endDate" type="date" required class="border-2 p-6 rounded-3xl">
+        <section id="tournaments" class="section max-w-7xl mx-auto px-6 py-12">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div>
+                    <h2 class="text-4xl font-black tracking-tight text-white">Live Operations</h2>
+                    <p class="text-sm text-slate-400 mt-1">Real-time indexed parameters across Indian state federations.</p>
                 </div>
-                <input id="city" type="text" placeholder="City *" required class="w-full border-2 p-6 rounded-3xl">
-                <div class="grid grid-cols-3 gap-6">
-                    <input id="eloMin" type="number" placeholder="Min Elo" class="border-2 p-6 rounded-3xl">
-                    <input id="eloMax" type="number" placeholder="Max Elo" class="border-2 p-6 rounded-3xl">
-                    <select id="format" class="border-2 p-6 rounded-3xl">
+                <div class="text-xs bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 px-4 py-2 rounded-xl font-black tracking-wider uppercase align-self-start md:align-self-auto animate-pulse">📡 Streaming Live Feeds</div>
+            </div>
+
+            <div class="bg-slate-900/60 border border-white/5 p-4 rounded-2xl shadow-2xl mb-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-4 flex items-center text-slate-500"><i class="fas fa-search-location"></i></span>
+                    <input id="searchCity" oninput="filterTournaments()" placeholder="Type City Location..." class="w-full bg-slate-800/50 border border-white/5 pl-10 pr-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                </div>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-4 flex items-center text-slate-500"><i class="fas fa-fingerprint"></i></span>
+                    <input id="searchElo" type="number" oninput="filterTournaments()" placeholder="Your Target ELO..." class="w-full bg-slate-800/50 border border-white/5 pl-10 pr-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                </div>
+                <div>
+                    <select id="searchFormat" onchange="filterTournaments()" class="w-full bg-slate-800/50 border border-white/5 px-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-slate-300 transition">
+                        <option value="">All Formats</option>
                         <option value="Classical">Classical</option>
                         <option value="Rapid">Rapid</option>
                         <option value="Blitz">Blitz</option>
                     </select>
                 </div>
-                <input id="fee" type="number" placeholder="Entry Fee (₹)" class="w-full border-2 p-6 rounded-3xl">
-                <input id="regLink" type="url" placeholder="Registration Link / WhatsApp *" required class="w-full border-2 p-6 rounded-3xl">
-                <input id="brochure" type="url" placeholder="Brochure Link (optional)" class="w-full border-2 p-6 rounded-3xl">
-                <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white py-7 text-2xl font-bold rounded-3xl hover:brightness-110">
-                    Publish Tournament
-                </button>
-            </form>
-        </div>
-    </section>
+                <div>
+                    <select id="sortBy" onchange="filterTournaments()" class="w-full bg-slate-800/50 border border-white/5 px-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-slate-300 transition">
+                        <option value="startDate">Timeline: Soonest First</option>
+                        <option value="fee">Pricing: Low → High</option>
+                        <option value="eloMax">Cap: High → Low</option>
+                    </select>
+                </div>
+                <button onclick="resetFilters()" class="w-full bg-slate-800 hover:bg-slate-700 border border-white/10 font-bold rounded-xl text-sm py-3 text-white transition">Wipe Filters</button>
+            </div>
+
+            <p id="resultsCount" class="text-xs text-indigo-400 uppercase font-black tracking-widest mb-6"></p>
+            <div id="tournamentsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+
+        <section id="saved" class="section max-w-7xl mx-auto px-6 py-12">
+            <h2 class="text-4xl font-black tracking-tight text-white mb-2">Saved Arenas Portfolio</h2>
+            <p class="text-sm text-slate-400 mb-8">Personal localized match vectors watchlist.</p>
+            <div id="savedList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+
+        <section id="guide" class="section max-w-3xl mx-auto px-6 py-12">
+            <div class="bg-slate-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
+                <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Operation Checklist</h2>
+                <p class="text-slate-400 text-sm text-center mb-10">Deploy inside the platform interface efficiently.</p>
+                
+                <div class="space-y-6">
+                    <div class="flex gap-6 items-center p-4 bg-slate-800/30 rounded-2xl border border-white/5">
+                        <div class="w-12 h-12 bg-indigo-500/10 text-indigo-400 rounded-xl flex items-center justify-center text-lg font-black border border-indigo-500/20">01</div>
+                        <div><h3 class="text-md font-bold text-white">Scan Board</h3><p class="text-slate-400 text-xs mt-0.5">Filter live parameters against target Elo parameters.</p></div>
+                    </div>
+                    <div class="flex gap-6 items-center p-4 bg-slate-800/30 rounded-2xl border border-white/5">
+                        <div class="w-12 h-12 bg-purple-500/10 text-purple-400 rounded-xl flex items-center justify-center text-lg font-black border border-purple-500/20">02</div>
+                        <div><h3 class="text-md font-bold text-white">Cache Matches</h3><p class="text-slate-400 text-xs mt-0.5">Click heart bookmarks to link metrics to client storage arrays.</p></div>
+                    </div>
+                    <div class="flex gap-6 items-center p-4 bg-slate-800/30 rounded-2xl border border-white/5">
+                        <div class="w-12 h-12 bg-pink-500/10 text-pink-400 rounded-xl flex items-center justify-center text-lg font-black border border-pink-500/20">03</div>
+                        <div><h3 class="text-md font-bold text-white">Direct Execution</h3><p class="text-slate-400 text-xs mt-0.5">Instantly forward payload parameters down external gateways.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="suggestions" class="section max-w-2xl mx-auto px-6 py-12">
+            <div class="bg-slate-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
+                <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Feedback Transmission</h2>
+                <p class="text-center text-slate-400 text-sm mb-8">Route updates directly into main architecture pipelines.</p>
+                
+                <form id="suggestionForm" onsubmit="submitSuggestion(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <input type="text" id="suggestName" placeholder="Ident Callsign..." class="bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                        <input type="email" id="suggestEmail" placeholder="Return Gateway Email..." class="bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    </div>
+                    <textarea id="suggestMessage" rows="4" placeholder="Input specific architectural insights or layout expansion specs..." class="w-full bg-slate-800/50 border border-white/5 p-5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition resize-none" required></textarea>
+                    <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-4 font-black rounded-xl text-sm shadow-lg hover:brightness-110 transition">Transmit Payload Packets</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="manage" class="section max-w-4xl mx-auto px-6 py-12">
+            <div class="bg-slate-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
+                <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Sys-Admin Terminal</h2>
+                <p class="text-center text-rose-400 text-xs font-black uppercase tracking-widest mb-8"><i class="fas fa-shield-alt mr-1"></i> Core Data Clearing Pipeline Locked</p>
+                <div id="manageList" class="space-y-3"></div>
+            </div>
+        </section>
+
+        <section id="add" class="section max-w-2xl mx-auto px-6 py-12">
+            <div class="bg-slate-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
+                <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Index New Tournament</h2>
+                <p class="text-slate-400 text-sm text-center mb-8">Deploy raw contest records into ecosystem tables instantly.</p>
+                
+                <form onsubmit="addTournament(event)" class="space-y-4">
+                    <input id="title" type="text" placeholder="Tournament Title Description *" required class="w-full bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col gap-1">
+                            <label class="text-[10px] font-black text-indigo-400 uppercase tracking-wider pl-1">Start Timeline *</label>
+                            <input id="startDate" type="date" required class="bg-slate-800/50 border border-white/5 px-5 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="text-[10px] font-black text-indigo-400 uppercase tracking-wider pl-1">End Timeline *</label>
+                            <input id="endDate" type="date" required class="bg-slate-800/50 border border-white/5 px-5 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                        </div>
+                    </div>
+
+                    <input id="city" type="text" placeholder="Target City Location *" required class="w-full bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    
+                    <div class="grid grid-cols-3 gap-4">
+                        <input id="eloMin" type="number" placeholder="Floor ELO" class="bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                        <input id="eloMax" type="number" placeholder="Ceiling ELO" class="bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                        <select id="format" class="bg-slate-800/50 border border-white/5 px-4 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-slate-300 transition">
+                            <option value="Classical">Classical</option>
+                            <option value="Rapid">Rapid</option>
+                            <option value="Blitz">Blitz</option>
+                        </select>
+                    </div>
+
+                    <input id="fee" type="number" placeholder="Access Fee (INR ₹)" class="w-full bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    <input id="regLink" type="url" placeholder="Gateway Access Hyper-Protocol Link *" required class="w-full bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    <input id="brochure" type="url" placeholder="Official Data Circular Document URL" class="w-full bg-slate-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    
+                    <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-4 font-black rounded-xl text-sm shadow-xl shadow-purple-500/10 transition">Deploy Production Index Payload</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="details" class="section max-w-4xl mx-auto px-6 py-12">
+            <div id="detailsContainer"></div>
+        </section>
+
+    </div>
 
     <script>
+        const ENCODED_PASS = "Y2hlc3NhZG1pbjEyMw==";
+
         let tournaments = [
-            {
-                id: 1,
-                title: "4th Gujarat International Open Grandmasters 2026",
-                startDate: "2026-06-01",
-                endDate: "2026-06-08",
-                city: "Ahmedabad",
-                eloMin: 1800,
-                eloMax: 2800,
-                format: "Classical",
-                fee: 2500,
-                regLink: "https://aicf.in",
-                brochure: "https://aicf.in/wp-content/uploads/2026/04/Prospectus-Draft.pdf"
-            },
-            {
-                id: 2,
-                title: "Meridian All India Open Rapid 2026",
-                startDate: "2026-06-10",
-                endDate: "2026-06-12",
-                city: "Hyderabad",
-                eloMin: 1000,
-                eloMax: 2200,
-                format: "Rapid",
-                fee: 1200,
-                regLink: "https://www.chesstelangana.com",
-                brochure: "#"
-            },
-            {
-                id: 3,
-                title: "13th BBCF International FIDE Rapid",
-                startDate: "2026-06-20",
-                endDate: "2026-06-20",
-                city: "Bangalore",
-                eloMin: 1200,
-                eloMax: 2300,
-                format: "Rapid",
-                fee: 1500,
-                regLink: "https://chessmii.com",
-                brochure: "#"
-            },
-            {
-                id: 4,
-                title: "National Under-7 Chess Championship",
-                startDate: "2026-06-30",
-                endDate: "2026-07-04",
-                city: "Nagpur",
-                eloMin: 400,
-                eloMax: 1400,
-                format: "Classical",
-                fee: 1500,
-                regLink: "https://aicf.in/upcoming-nationals/",
-                brochure: "https://aicf.in/wp-content/uploads/2026/06/Revised-Circular-of-National-Under-7-Chess-Championships-2026.pdf"
-            }
+            { id: 1, title: "4th Gujarat International Open Grandmasters 2026", startDate: "2026-06-01", endDate: "2026-06-08", city: "Ahmedabad", eloMin: 1800, eloMax: 2800, format: "Classical", fee: 2500, regLink: "https://aicf.in", brochure: "https://aicf.in/wp-content/uploads/2026/04/Prospectus-Draft.pdf" },
+            { id: 2, title: "Meridian All India Open Rapid 2026", startDate: "2026-06-10", endDate: "2026-06-12", city: "Hyderabad", eloMin: 1000, eloMax: 2200, format: "Rapid", fee: 1200, regLink: "https://www.chesstelangana.com", brochure: "#" },
+            { id: 3, title: "13th BBCF International FIDE Rapid", startDate: "2026-06-20", endDate: "2026-06-20", city: "Bangalore", eloMin: 1200, eloMax: 2300, format: "Rapid", fee: 1500, regLink: "https://chessmii.com", brochure: "#" },
+            { id: 4, title: "National Under-7 Chess Championship", startDate: "2026-06-30", endDate: "2026-07-04", city: "Nagpur", eloMin: 400, eloMax: 1400, format: "Classical", fee: 1500, regLink: "https://aicf.in/upcoming-nationals/", brochure: "https://aicf.in/wp-content/uploads/2026/06/Revised-Circular-of-National-Under-7-Chess-Championships-2026.pdf" }
         ];
+
+        function sanitize(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
 
         function loadData() {
             const savedData = JSON.parse(localStorage.getItem('chessTournaments')) || [];
@@ -260,10 +385,30 @@
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             tournaments = tournaments.filter(t => new Date(t.endDate) >= today);
+            updateStats();
         }
 
         function saveData() {
             localStorage.setItem('chessTournaments', JSON.stringify(tournaments));
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('statTotal').textContent = tournaments.length;
+            document.getElementById('statRapid').textContent = tournaments.filter(t => t.format === 'Rapid').length;
+            document.getElementById('statClassical').textContent = tournaments.filter(t => t.format === 'Classical').length;
+            document.getElementById('statFeatured').textContent = tournaments.filter(t => isFeatured(t)).length;
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('light');
+            const isLight = document.body.classList.contains('light');
+            document.getElementById('darkModeBtn').textContent = isLight ? "🌙" : "☀️";
+            
+            // Re-run matching list rendering filters to apply text fixes safely
+            const activeSection = document.querySelector('.section.active');
+            if (activeSection && activeSection.id === 'tournaments') filterTournaments();
+            if (activeSection && activeSection.id === 'saved') renderSaved();
         }
 
         function isSaved(id) {
@@ -275,17 +420,16 @@
             let saved = JSON.parse(localStorage.getItem('savedTournaments')) || [];
             if (saved.includes(id)) {
                 saved = saved.filter(s => s !== id);
-                alert("💔 Removed from saved list.");
             } else {
                 saved.push(id);
-                alert("❤️ Tournament saved!");
             }
             localStorage.setItem('savedTournaments', JSON.stringify(saved));
             updateSavedCount();
-
-            const activeSection = document.querySelector('.section.active').id;
-            if (activeSection === 'tournaments') filterTournaments();
-            else if (activeSection === 'saved') renderSaved();
+            
+            const activeSection = document.querySelector('.section.active');
+            const active = activeSection ? activeSection.id : 'tournaments';
+            if (active === 'tournaments') filterTournaments();
+            else if (active === 'saved') renderSaved();
         }
 
         function formatDate(dateStr) {
@@ -293,7 +437,7 @@
         }
 
         function isFeatured(t) {
-            return t.eloMax >= 2400;
+            return t.eloMax >= 2300;
         }
 
         function getCountdown(startDate) {
@@ -302,45 +446,57 @@
             today.setHours(0,0,0,0);
             start.setHours(0,0,0,0);
             const diff = Math.ceil((start - today) / (86400000));
-            if (diff < 0) return "⏳ Ongoing";
-            if (diff === 0) return "🚀 Starts Today";
+            if (diff < 0) return "⏳ Live Now";
+            if (diff === 0) return "⚡ Starts Today";
             if (diff === 1) return "📅 Starts Tomorrow";
-            return `📅 Starts in ${diff} days`;
+            return `📅 T-Minus ${diff} Days`;
         }
 
         function renderTournaments(data, containerId = 'tournamentsList') {
             const container = document.getElementById(containerId);
             container.innerHTML = '';
             if (data.length === 0) {
-                container.innerHTML = `<div class="col-span-3 text-center py-20"><p class="text-4xl mb-4">😕</p><p class="text-xl text-gray-600">No tournaments found.</p></div>`;
+                container.innerHTML = `
+                    <div class="col-span-1 md:col-span-3 text-center py-16 bg-slate-900/20 rounded-2xl border border-dashed border-white/5">
+                        <p class="text-3xl mb-2">📡</p>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">No active tournament records match selection vectors.</p>
+                    </div>`;
                 return;
             }
             data.forEach(t => {
-                const featured = isFeatured(t) ? `<div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-4 py-1.5 rounded-full">🔥 FEATURED</div>` : '';
-                const heartIcon = isSaved(t.id) ? '❤️' : '♡';
+                const featured = isFeatured(t) ? `<div class="absolute top-4 right-4 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white text-[9px] tracking-widest font-black px-3 py-1 rounded-md shadow-lg shadow-purple-500/20">GM FIELD</div>` : '';
+                const heartClass = isSaved(t.id) ? 'fas fa-heart text-pink-500 scale-125' : 'far fa-heart text-slate-400';
+                
                 const html = `
-                    <div class="tournament-card bg-white rounded-3xl overflow-hidden border border-gray-100 relative">
-                        <div class="h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
-                        ${featured}
-                        <div class="p-8">
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="badge text-white text-xs font-bold px-4 py-1.5 rounded-full">${t.format}</span>
-                                <span class="text-sm font-medium text-gray-500">${formatDate(t.startDate)} — ${formatDate(t.endDate)}</span>
+                    <div class="tournament-card rounded-2xl overflow-hidden relative shadow-lg flex flex-col justify-between">
+                        <div>
+                            <div class="h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+                            ${featured}
+                            <div class="p-6">
+                                <div class="flex items-center gap-2 mb-4">
+                                    <span class="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-[10px] font-black px-2.5 py-1 rounded-md tracking-wider uppercase">${sanitize(t.format)}</span>
+                                    <span class="text-[11px] text-slate-400 font-bold">${formatDate(t.startDate)} — ${formatDate(t.endDate)}</span>
+                                </div>
+                                <h3 class="text-lg font-black text-white tracking-tight mb-1 hover:text-indigo-400 transition cursor-pointer" onclick="viewTournament(${t.id})">${sanitize(t.title)}</h3>
+                                <div class="text-xs font-black text-emerald-400 tracking-wide mb-4">${getCountdown(t.startDate)}</div>
+                                
+                                <div class="flex items-center gap-1.5 text-xs text-slate-400 font-bold mb-4">
+                                    <i class="fas fa-map-pin text-pink-500"></i>
+                                    <span>${sanitize(t.city).toUpperCase()}</span>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-4 border-t border-white/5 py-4 mt-2 text-xs font-bold">
+                                    <div><span class="text-[9px] text-indigo-400 block uppercase tracking-wider mb-0.5">Rating Bounds</span>${Number(t.eloMin)}–${Number(t.eloMax)}</div>
+                                    <div><span class="text-[9px] text-indigo-400 block uppercase tracking-wider mb-0.5">Entry Pool</span>₹${Number(t.fee)}</div>
+                                </div>
                             </div>
-                            <h3 class="text-2xl font-bold mb-2 leading-tight">${t.title}</h3>
-                            <div class="text-green-600 font-bold mb-3">${getCountdown(t.startDate)}</div>
-                            <div class="flex items-center gap-2 text-gray-600 mb-6">
-                                <i class="fas fa-map-marker-alt"></i> <span>${t.city}</span>
-                            </div>
-                            <div class="grid grid-cols-2 gap-y-4 text-sm mb-8">
-                                <div><span class="font-semibold">Rating:</span> ${t.eloMin}–${t.eloMax}</div>
-                                <div><span class="font-semibold">Fee:</span> ₹${t.fee}</div>
-                            </div>
-                            <div class="flex gap-4">
-                                <a href="${t.regLink}" target="_blank" class="flex-1 text-center bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-semibold">Register Now</a>
-                                ${t.brochure && t.brochure !== "#" ? `<a href="${t.brochure}" target="_blank" class="flex-1 text-center bg-red-600 hover:bg-red-700 text-white py-4 rounded-2xl font-semibold">📄 Brochure</a>` : ''}
-                                <button onclick="toggleSave(${t.id})" class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-4 rounded-2xl font-bold text-2xl">${heartIcon}</button>
-                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-2 flex gap-2 items-center">
+                            <button onclick="viewTournament(${t.id})" class="flex-1 text-center bg-slate-800 hover:bg-slate-700 text-white border border-white/5 py-2.5 rounded-xl font-black text-xs tracking-wider uppercase transition duration-200">Inspect</button>
+                            <a href="${sanitize(t.regLink)}" target="_blank" class="flex-1 text-center bg-gradient-to-r from-indigo-600 to-purple-600 hover:brightness-110 text-white py-2.5 rounded-xl font-black text-xs tracking-wider uppercase transition duration-200">Register</a>
+                            <button onclick="toggleSave(${t.id})" class="p-2.5 bg-slate-800/50 hover:bg-slate-800 rounded-xl transition duration-200 border border-white/5">
+                                <i class="${heartClass}"></i>
+                            </button>
                         </div>
                     </div>`;
                 container.innerHTML += html;
@@ -364,7 +520,7 @@
             else if (sortBy === 'eloMax') filtered.sort((a, b) => b.eloMax - a.eloMax);
 
             renderTournaments(filtered);
-            document.getElementById('resultsCount').textContent = `${filtered.length} tournaments found`;
+            document.getElementById('resultsCount').textContent = `// ${filtered.length} BATTLES TRACKED`;
         }
 
         function resetFilters() {
@@ -372,8 +528,7 @@
             document.getElementById('searchElo').value = '';
             document.getElementById('searchFormat').value = '';
             document.getElementById('sortBy').value = 'startDate';
-            renderTournaments(tournaments);
-            document.getElementById('resultsCount').textContent = `${tournaments.length} tournaments found`;
+            filterTournaments();
         }
 
         function addTournament(e) {
@@ -393,9 +548,9 @@
             };
             tournaments.unshift(newTournament);
             saveData();
-            alert("🎉 Tournament published successfully!");
+            alert("🎉 Target Matrix Stream Loaded Successfully!");
             e.target.reset();
-            showSection('tournaments');
+            showSection(null, 'tournaments');
         }
 
         function renderSaved() {
@@ -407,7 +562,11 @@
         function updateSavedCount() {
             const count = (JSON.parse(localStorage.getItem('savedTournaments')) || []).length;
             const el = document.getElementById('savedCount');
-            if (el) el.textContent = count > 0 ? count : '';
+            if (el) {
+                el.textContent = count;
+                if (count > 0) el.classList.remove('hidden');
+                else el.classList.add('hidden');
+            }
         }
 
         function submitSuggestion(e) {
@@ -415,38 +574,139 @@
             const name = document.getElementById('suggestName').value.trim();
             const email = document.getElementById('suggestEmail').value.trim();
             const message = document.getElementById('suggestMessage').value.trim();
+            if (!message) return;
 
-            if (!message) {
-                alert("Please write your suggestion.");
+            const body = `From: ${name || "Anonymous"}\nEmail: ${email || "N/A"}\n\n${message}`;
+            window.location.href = `mailto:virensheoran2012@gmail.com?subject=ChessEvents Optimization Payload&body=${encodeURIComponent(body)}`;
+            e.target.reset();
+        }
+
+        function deleteTournament(id) {
+            const pass = prompt("Enter Clearance Override Signature Key:");
+            if (btoa(pass) !== ENCODED_PASS) return alert("❌ Execution Signature Mismatch.");
+            if (!confirm("Purge selected dataset timeline from memory arrays?")) return;
+
+            tournaments = tournaments.filter(t => t.id !== id);
+            saveData();
+            renderManage();
+            filterTournaments();
+        }
+
+        function renderManage() {
+            const container = document.getElementById('manageList');
+            container.innerHTML = '';
+            if (tournaments.length === 0) {
+                container.innerHTML = `<p class="text-xs font-bold text-slate-500 text-center py-4 tracking-widest">// DATA STORAGE CACHE EMPTY</p>`;
                 return;
             }
-
-            let subject = "ChessEvents Suggestion";
-            let body = `Suggestion from: ${name || "Anonymous"}\n`;
-            if (email) body += `Email: ${email}\n\n`;
-            body += `Message:\n${message}`;
-
-            const mailtoLink = `mailto:virensheoran2012@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            window.location.href = mailtoLink;
-            e.target.reset();
-            alert("✅ Email client opened. Thank you for your suggestion!");
+            tournaments.forEach(t => {
+                const div = document.createElement('div');
+                div.className = "flex justify-between items-center bg-slate-800/30 border border-white/5 p-4 rounded-xl transition";
+                div.innerHTML = `
+                    <div>
+                        <h3 class="font-extrabold text-sm text-white">${sanitize(t.title)}</h3>
+                        <p class="text-[10px] uppercase font-black text-slate-500 tracking-wider mt-0.5">${sanitize(t.city)} • ${sanitize(t.format)} • ₹${Number(t.fee)}</p>
+                    </div>
+                    <button onclick="deleteTournament(${t.id})" class="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs px-4 py-2 rounded-xl font-black tracking-widest uppercase transition">Purge</button>
+                `;
+                container.appendChild(div);
+            });
         }
 
-        function showSection(section) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById(section).classList.add('active');
+        function viewTournament(id) {
+            const tournament = tournaments.find(t => t.id == id);
+            if (!tournament) return;
 
-            if (section === 'tournaments') {
-                filterTournaments();
-            } else if (section === 'saved') {
-                renderSaved();
+            document.getElementById('detailsContainer').innerHTML = `
+                <div class="bg-slate-900/80 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
+                    <button onclick="showSection(event, 'tournaments')" class="mb-6 bg-slate-800 hover:bg-slate-700 text-white border border-white/10 px-4 py-2 rounded-xl font-black text-xs tracking-widest uppercase transition">← Return to Stream</button>
+
+                    <h2 class="text-3xl font-black text-white mb-6 tracking-tight leading-tight">${sanitize(tournament.title)}</h2>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-xs font-bold text-slate-300">
+                        <div class="bg-slate-800/30 p-4 rounded-xl border border-white/5"><span class="text-[9px] block font-black text-indigo-400 uppercase tracking-widest mb-1">Target Arena Deck</span>${sanitize(tournament.city).toUpperCase()}</div>
+                        <div class="bg-slate-800/30 p-4 rounded-xl border border-white/5"><span class="text-[9px] block font-black text-indigo-400 uppercase tracking-widest mb-1">Ecosystem Variant</span>${sanitize(tournament.format).toUpperCase()}</div>
+                        <div class="bg-slate-800/30 p-4 rounded-xl border border-white/5"><span class="text-[9px] block font-black text-indigo-400 uppercase tracking-widest mb-1">Opening Bell Timeline</span>${formatDate(tournament.startDate)}</div>
+                        <div class="bg-slate-800/30 p-4 rounded-xl border border-white/5"><span class="text-[9px] block font-black text-indigo-400 uppercase tracking-widest mb-1">Final Wrap Timeline</span>${formatDate(tournament.endDate)}</div>
+                        <div class="bg-slate-800/30 p-4 rounded-xl border border-white/5"><span class="text-[9px] block font-black text-indigo-400 uppercase tracking-widest mb-1">Elo Parameter Bounds</span>${Number(tournament.eloMin)} - ${Number(tournament.eloMax)}</div>
+                        <div class="bg-slate-800/30 p-4 rounded-xl border border-white/5"><span class="text-[9px] block font-black text-indigo-400 uppercase tracking-widest mb-1">Access Token Stake</span>₹${Number(tournament.fee)}</div>
+                    </div>
+
+                    <div class="flex gap-3 flex-wrap">
+                        <a href="${sanitize(tournament.regLink)}" target="_blank" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-6 py-3.5 rounded-xl text-xs font-black tracking-widest uppercase transition shadow-lg shadow-purple-500/20">Secure Entry Stream</a>
+                        <button onclick="navigator.clipboard.writeText(window.location.href);alert('Pathway hash linked to core operational system clipboard.')" class="bg-slate-800 hover:bg-slate-700 border border-white/10 text-white px-6 py-3.5 rounded-xl text-xs font-black tracking-widest uppercase transition">Share Routing Hash</button>
+                    </div>
+                </div>
+            `;
+
+            if (!window.location.search.includes(`tournament=${id}`)) {
+                history.pushState({ section: 'details', id: id }, '', '?tournament=' + id);
+            }
+            
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('details').classList.add('active');
+            updateNavHighlights('tournaments');
+        }
+
+        function updateNavHighlights(sectionId) {
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active-nav'));
+            const targetNavLink = document.getElementById(`nav-${sectionId}`);
+            if (targetNavLink) targetNavLink.classList.add('active-nav');
+        }
+
+        function showSection(e, section) {
+            if (e) e.preventDefault();
+
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            const element = document.getElementById(section);
+            if (element) element.classList.add('active');
+
+            updateNavHighlights(section);
+
+            if (section === 'tournaments') filterTournaments();
+            else if (section === 'saved') renderSaved();
+            else if (section === 'manage') renderManage();
+
+            if (section !== 'details') {
+                history.pushState({ section: section }, '', `?tab=${section}`);
             }
         }
+
+        window.onpopstate = function(event) {
+            const params = new URLSearchParams(window.location.search);
+            const tournamentId = params.get('tournament');
+            const activeTab = params.get('tab');
+
+            if (tournamentId) {
+                viewTournament(tournamentId);
+            } else if (activeTab) {
+                showSection(null, activeTab);
+            } else {
+                showSection(null, 'home');
+            }
+        };
 
         window.onload = () => {
             loadData();
             updateSavedCount();
-            showSection('home');
+            
+            const params = new URLSearchParams(window.location.search);
+            const tournamentId = params.get('tournament');
+            const activeTab = params.get('tab');
+
+            if (tournamentId) {
+                const found = tournaments.find(t => t.id == tournamentId);
+                if (found) { 
+                    viewTournament(found.id); 
+                    return; 
+                }
+            }
+            
+            if (activeTab) {
+                showSection(null, activeTab);
+            } else {
+                showSection(null, 'home');
+            }
         };
     </script>
 </body>
