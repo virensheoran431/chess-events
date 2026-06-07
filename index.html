@@ -163,7 +163,7 @@
     <nav class="bg-zinc-900/80 backdrop-blur-xl border-b border-white/5 sticky top-0 z-50 transition-all">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3 cursor-pointer" onclick="showSection(event, 'home')">
-                <span class="text-4xl">♞</span>
+                <span class="text-4xl" aria-hidden="true">♞</span>
                 <div>
                     <h1 class="text-2xl font-black tracking-tighter bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">ChessEvents</h1>
                     <p class="text-[10px] uppercase font-extrabold tracking-widest text-indigo-400/80 -mt-0.5">Control The Board</p>
@@ -173,13 +173,13 @@
             <div class="flex gap-6 text-sm font-bold items-center">
                 <a href="#" onclick="showSection(event, 'home')" id="nav-home" class="nav-link active-nav">Home</a>
                 <a href="#" onclick="showSection(event, 'tournaments')" id="nav-tournaments" class="nav-link">Tournaments</a>
-                <a href="#" onclick="showSection(event, 'saved')" id="nav-saved" class="nav-link flex items-center gap-1.5">Saved <span id="savedCount" class="text-[10px] bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-black px-2 py-0.5 rounded-md hidden">0</span></a>
+                <a href="#" onclick="showSection(event, 'saved')" id="nav-saved" class="nav-link flex items-center gap-1.5">Saved Watchlist <span id="savedCount" class="text-[10px] bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-black px-2 py-0.5 rounded-md hidden">0</span></a>
                 <a href="#" onclick="showSection(event, 'about')" id="nav-about" class="nav-link">About Me</a>
                 <a href="#" onclick="showSection(event, 'guide')" id="nav-guide" class="nav-link">How to Use</a>
-                <a href="#" onclick="showSection(event, 'suggestions')" id="nav-suggestions" class="nav-link">Suggestions</a>
-                <a href="#" onclick="showSection(event, 'manage')" id="nav-manage" class="nav-link">Manage</a>
-                <a href="#" onclick="showSection(event, 'add')" id="nav-add" class="nav-link px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-xl shadow-lg shadow-indigo-500/20 transition duration-300">List Event</a>
-                <button onclick="toggleDarkMode()" id="darkModeBtn" class="p-2.5 rounded-xl bg-zinc-800 text-amber-400 hover:bg-zinc-700 transition duration-200">☀️</button>
+                <a href="#" onclick="showSection(event, 'suggestions')" id="nav-suggestions" class="nav-link">Feedback</a>
+                <a href="#" onclick="showSection(event, 'manage')" id="nav-manage" class="nav-link">Admin Dashboard</a>
+                <a href="#" onclick="showSection(event, 'add')" id="nav-add" class="nav-link px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-xl shadow-lg shadow-indigo-500/20 transition duration-300">+ List Event</a>
+                <button onclick="toggleDarkMode()" id="darkModeBtn" class="p-2.5 rounded-xl bg-zinc-800 text-amber-400 hover:bg-zinc-700 transition duration-200" aria-label="Toggle light and dark themes">☀️</button>
             </div>
         </div>
     </nav>
@@ -192,10 +192,10 @@
                     <div class="max-w-4xl mx-auto relative z-10">
                         <span class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 inline-block">India's Ultimate Chess Hub • 2026</span>
                         <h1 class="text-6xl md:text-7xl font-black mb-6 tracking-tight leading-none text-white">MAKE YOUR NEXT<br><span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">ELITE MOVE</span></h1>
-                        <p class="text-lg text-slate-300 mb-10 max-w-2xl mx-auto font-medium">Instantly tap into premium FIDE Rated, Rapid, and classical tournaments across India with direct zero-friction registrations.</p>
+                        <p class="text-lg text-slate-300 mb-10 max-w-2xl mx-auto font-medium">Instantly tap into premium FIDE Rated, Rapid, and Classical tournaments across India with direct zero-friction registrations.</p>
                         <div class="flex gap-4 justify-center flex-wrap">
                             <button onclick="showSection(event, 'tournaments')" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-8 py-4 rounded-xl text-md font-extrabold shadow-xl shadow-purple-500/20 hover:scale-[1.05] hover:shadow-purple-500/40 transition duration-300 flex items-center gap-3">
-                                <i class="fas fa-crosshairs text-lg"></i> Launch Tournaments
+                                <i class="fas fa-search text-lg"></i> Browse Tournaments
                             </button>
                         </div>
                     </div>
@@ -204,15 +204,15 @@
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
                     <div class="bg-zinc-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
                         <div class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xl rounded-xl flex items-center justify-center shadow-inner">⚡</div>
-                        <div><div class="text-3xl font-black text-indigo-400" id="statTotal">0</div><div class="text-slate-400 text-xs font-bold uppercase tracking-wider">Total Battles</div></div>
+                        <div><div class="text-3xl font-black text-indigo-400" id="statTotal">0</div><div class="text-slate-400 text-xs font-bold uppercase tracking-wider">Total Tournaments</div></div>
                     </div>
                     <div class="bg-zinc-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
                         <div class="w-12 h-12 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xl rounded-xl flex items-center justify-center shadow-inner">🔥</div>
-                        <div><div class="text-3xl font-black text-amber-400" id="statRapid">0</div><div class="text-slate-400 text-xs font-bold uppercase tracking-wider">Rapid Arenas</div></div>
+                        <div><div class="text-3xl font-black text-amber-400" id="statRapid">0</div><div class="text-slate-400 text-xs font-bold uppercase tracking-wider">Rapid Matches</div></div>
                     </div>
                     <div class="bg-zinc-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
                         <div class="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xl rounded-xl flex items-center justify-center shadow-inner">🏆</div>
-                        <div><div class="text-3xl font-black text-emerald-400" id="statClassical">0</div><div class="text-slate-400 text-xs font-bold uppercase tracking-wider">Classical Pools</div></div>
+                        <div><div class="text-3xl font-black text-emerald-400" id="statClassical">0</div><div class="text-slate-400 text-xs font-bold uppercase tracking-wider">Classical Events</div></div>
                     </div>
                     <div class="bg-zinc-900/50 backdrop-blur border border-white/5 p-6 rounded-2xl flex items-center gap-4">
                         <div class="w-12 h-12 bg-pink-500/10 border border-pink-500/20 text-pink-400 text-xl rounded-xl flex items-center justify-center shadow-inner">👑</div>
@@ -225,7 +225,7 @@
         <section id="tournaments" class="section max-w-7xl mx-auto px-6 py-12">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div>
-                    <h2 class="text-4xl font-black tracking-tight text-white">Live Operations</h2>
+                    <h2 class="text-4xl font-black tracking-tight text-white">Live Open Tournaments</h2>
                     <p class="text-sm text-slate-400 mt-1">Real-time parameters indexed across Indian state federations.</p>
                 </div>
                 <div class="text-xs bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 px-4 py-2 rounded-xl font-black tracking-wider uppercase align-self-start md:align-self-auto animate-pulse">📡 Streaming Live Feeds</div>
@@ -234,14 +234,14 @@
             <div class="bg-zinc-900/60 border border-white/5 p-4 rounded-2xl shadow-2xl mb-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
                 <div class="relative">
                     <span class="absolute inset-y-0 left-4 flex items-center text-slate-500"><i class="fas fa-search-location"></i></span>
-                    <input id="searchCity" oninput="filterTournaments()" placeholder="Type City Location..." class="w-full bg-zinc-800/50 border border-white/5 pl-10 pr-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    <input id="searchCity" oninput="filterTournaments()" placeholder="Type City Location..." class="w-full bg-zinc-800/50 border border-white/5 pl-10 pr-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition" aria-label="Search by city">
                 </div>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-4 flex items-center text-slate-500"><i class="fas fa-fingerprint"></i></span>
-                    <input id="searchElo" type="number" oninput="filterTournaments()" placeholder="Your Target ELO..." class="w-full bg-zinc-800/50 border border-white/5 pl-10 pr-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    <input id="searchElo" type="number" oninput="filterTournaments()" placeholder="Your Current ELO Rating..." class="w-full bg-zinc-800/50 border border-white/5 pl-10 pr-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition" aria-label="Filter by target ELO">
                 </div>
                 <div>
-                    <select id="searchFormat" onchange="filterTournaments()" class="w-full bg-zinc-800/50 border border-white/5 px-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-slate-300 transition">
+                    <select id="searchFormat" onchange="filterTournaments()" class="w-full bg-zinc-800/50 border border-white/5 px-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-slate-300 transition" aria-label="Filter by game format">
                         <option value="">All Formats</option>
                         <option value="Classical">Classical</option>
                         <option value="Rapid">Rapid</option>
@@ -249,13 +249,13 @@
                     </select>
                 </div>
                 <div>
-                    <select id="sortBy" onchange="filterTournaments()" class="w-full bg-zinc-800/50 border border-white/5 px-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-slate-300 transition">
+                    <select id="sortBy" onchange="filterTournaments()" class="w-full bg-zinc-800/50 border border-white/5 px-4 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-slate-300 transition" aria-label="Sort options">
                         <option value="startDate">Timeline: Soonest First</option>
                         <option value="fee">Pricing: Low → High</option>
                         <option value="eloMax">Cap: High → Low</option>
                     </select>
                 </div>
-                <button onclick="resetFilters()" class="w-full bg-zinc-800 hover:bg-zinc-700 border border-white/10 font-bold rounded-xl text-sm py-3 text-white transition">Wipe Filters</button>
+                <button onclick="resetFilters()" class="w-full bg-zinc-800 hover:bg-zinc-700 border border-white/10 font-bold rounded-xl text-sm py-3 text-white transition">Clear Filters</button>
             </div>
 
             <p id="resultsCount" class="text-xs text-indigo-400 uppercase font-black tracking-widest mb-6"></p>
@@ -264,7 +264,7 @@
 
         <section id="saved" class="section max-w-7xl mx-auto px-6 py-12">
             <h2 class="text-4xl font-black tracking-tight text-white mb-2">Saved Arenas Portfolio</h2>
-            <p class="text-sm text-slate-400 mb-8">Personal localized match vectors watchlist portfolio.</p>
+            <p class="text-sm text-slate-400 mb-8">Your personally bookmarked upcoming tournaments watchlist.</p>
             <div id="savedList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </section>
 
@@ -272,7 +272,7 @@
             <div class="bg-zinc-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10 relative overflow-hidden">
                 <div class="absolute top-0 right-0 p-8 text-7xl opacity-5 pointer-events-none font-black text-indigo-400">♞</div>
                 <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Behind ChessEvents</h2>
-                <p class="text-slate-400 text-sm text-center mb-8">The story behind the platform architectural layout.</p>
+                <p class="text-slate-400 text-sm text-center mb-8">The story behind the platform layout.</p>
                 
                 <div class="space-y-6 text-slate-300 leading-relaxed font-medium">
                     <p>
@@ -285,7 +285,7 @@
                         </p>
                     </div>
                     <p>
-                        Frustrated by the friction it took just to find out where and when to play, I decided to engineer a clean solution myself. I developed <strong class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">ChessEvents</strong>—a zero-friction data deck designed specifically for Indian players to seamlessly discover, filter, and register for tournaments instantly.
+                        Frustrated by the friction it took just to find out where and when to play, I decided to engineer a clean solution myself. I developed <strong class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">ChessEvents</strong>—a zero-friction dashboard designed specifically for Indian players to seamlessly discover, filter, and register for tournaments instantly.
                     </p>
                 </div>
             </div>
@@ -293,21 +293,21 @@
 
         <section id="guide" class="section max-w-3xl mx-auto px-6 py-12">
             <div class="bg-zinc-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
-                <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Operation Checklist</h2>
-                <p class="text-slate-400 text-sm text-center mb-10">Deploy inside the platform interface efficiently.</p>
+                <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">How It Works</h2>
+                <p class="text-slate-400 text-sm text-center mb-10">Navigate the dashboard interface efficiently.</p>
                 
                 <div class="space-y-6">
                     <div class="flex gap-6 items-center p-4 bg-zinc-800/30 rounded-2xl border border-white/5">
                         <div class="w-12 h-12 bg-indigo-500/10 text-indigo-400 rounded-xl flex items-center justify-center text-lg font-black border border-indigo-500/20">01</div>
-                        <div><h3 class="text-md font-bold text-white">Scan Parameters</h3><p class="text-slate-400 text-xs mt-0.5">Filter live parameters against target Elo limits effortlessly.</p></div>
+                        <div><h3 class="text-md font-bold text-white">Filter Parameters</h3><p class="text-slate-400 text-xs mt-0.5">Filter the dynamic listings matching your target Elo and location limits effortlessly.</p></div>
                     </div>
                     <div class="flex gap-6 items-center p-4 bg-zinc-800/30 rounded-2xl border border-white/5">
                         <div class="w-12 h-12 bg-purple-500/10 text-purple-400 rounded-xl flex items-center justify-center text-lg font-black border border-purple-500/20">02</div>
-                        <div><h3 class="text-md font-bold text-white">Cache Matches</h3><p class="text-slate-400 text-xs mt-0.5">Click heart bookmarks to cache entries instantly down to local storage arrays.</p></div>
+                        <div><h3 class="text-md font-bold text-white">Save Matches</h3><p class="text-slate-400 text-xs mt-0.5">Click the heart bookmarks to instantly save entries to your private browser watchlist.</p></div>
                     </div>
                     <div class="flex gap-6 items-center p-4 bg-zinc-800/30 rounded-2xl border border-white/5">
                         <div class="w-12 h-12 bg-pink-500/10 text-pink-400 rounded-xl flex items-center justify-center text-lg font-black border border-pink-500/20">03</div>
-                        <div><h3 class="text-md font-bold text-white">Direct Execution</h3><p class="text-slate-400 text-xs mt-0.5">Instantly forward payload links to access registration sheets.</p></div>
+                        <div><h3 class="text-md font-bold text-white">Direct Registration</h3><p class="text-slate-400 text-xs mt-0.5">Instantly forward payload links to access federation entry circular forms.</p></div>
                     </div>
                 </div>
             </div>
@@ -315,64 +315,97 @@
 
         <section id="suggestions" class="section max-w-2xl mx-auto px-6 py-12">
             <div class="bg-zinc-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
-                <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Feedback Transmission</h2>
-                <p class="text-center text-slate-400 text-sm mb-8">Route telemetry updates directly into main architecture pipelines.</p>
+                <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Submit Feedback</h2>
+                <p class="text-center text-slate-400 text-sm mb-8">Send feature ideas or interface improvement suggestions directly into our project pipeline.</p>
                 
                 <form id="suggestionForm" onsubmit="submitSuggestion(event)" class="space-y-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <input type="text" id="suggestName" placeholder="Ident Callsign..." class="bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
-                        <input type="email" id="suggestEmail" placeholder="Return Gateway Email..." class="bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                        <div>
+                            <label for="suggestName" class="block text-xs font-bold uppercase text-slate-400 mb-1 pl-1">Your Name / Alias</label>
+                            <input type="text" id="suggestName" placeholder="e.g., Magnus Tarun" class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                        </div>
+                        <div>
+                            <label for="suggestEmail" class="block text-xs font-bold uppercase text-slate-400 mb-1 pl-1">Contact Email Address</label>
+                            <input type="email" id="suggestEmail" placeholder="e.g., player@example.com" class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                        </div>
                     </div>
-                    <textarea id="suggestMessage" rows="4" placeholder="Input specific architectural layout feedback..." class="w-full bg-zinc-800/50 border border-white/5 p-5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition resize-none" required></textarea>
-                    <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-4 font-black rounded-xl text-sm shadow-lg hover:brightness-110 transition">Transmit Payload Packets</button>
+                    <div>
+                        <label for="suggestMessage" class="block text-xs font-bold uppercase text-slate-400 mb-1 pl-1">Your Suggestion Message *</label>
+                        <textarea id="suggestMessage" rows="4" placeholder="Input specific platform layout feedback or missing tournament suggestions..." class="w-full bg-zinc-800/50 border border-white/5 p-5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition resize-none" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-4 font-black rounded-xl text-sm shadow-lg hover:brightness-110 transition">Submit Feedback</button>
                 </form>
             </div>
         </section>
 
         <section id="manage" class="section max-w-4xl mx-auto px-6 py-12">
             <div class="bg-zinc-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
-                <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Sys-Admin Terminal</h2>
-                <p class="text-center text-rose-400 text-xs font-black uppercase tracking-widest mb-8"><i class="fas fa-shield-alt mr-1"></i> Core Data Clearing Pipeline Active</p>
+                <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Admin Console Terminal</h2>
+                <p class="text-center text-rose-400 text-xs font-black uppercase tracking-widest mb-8"><i class="fas fa-shield-alt mr-1"></i> Database Record Deletion Tool Active</p>
                 <div id="manageList" class="space-y-3"></div>
             </div>
         </section>
 
         <section id="add" class="section max-w-2xl mx-auto px-6 py-12">
             <div class="bg-zinc-900/60 border border-white/5 rounded-[2.5rem] shadow-2xl p-10">
-                <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">Index New Tournament</h2>
-                <p class="text-slate-400 text-sm text-center mb-8">Deploy raw contest records into ecosystem data pools instantly.</p>
+                <h2 class="text-4xl font-black tracking-tight text-white mb-2 text-center">List an Upcoming Tournament</h2>
+                <p class="text-slate-400 text-sm text-center mb-8">Deploy dynamic entry records into ecosystem public indexing pools instantly.</p>
                 
                 <form onsubmit="addTournament(event)" class="space-y-4">
-                    <input id="title" type="text" placeholder="Tournament Title Description *" required class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    <div>
+                        <label for="title" class="block text-xs font-bold uppercase text-slate-400 mb-1 pl-1">Tournament Title Description *</label>
+                        <input id="title" type="text" placeholder="e.g., 4th Gujarat International Open Grandmasters 2026" required class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    </div>
                     
                     <div class="grid grid-cols-2 gap-4">
                         <div class="flex flex-col gap-1">
-                            <label class="text-[10px] font-black text-indigo-400 uppercase tracking-wider pl-1">Start Timeline *</label>
+                            <label for="startDate" class="text-xs font-bold text-indigo-400 uppercase tracking-wider pl-1">Start Date *</label>
                             <input id="startDate" type="date" required class="bg-zinc-800/50 border border-white/5 px-5 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
                         </div>
                         <div class="flex flex-col gap-1">
-                            <label class="text-[10px] font-black text-indigo-400 uppercase tracking-wider pl-1">End Timeline *</label>
+                            <label for="endDate" class="text-xs font-bold text-indigo-400 uppercase tracking-wider pl-1">End Date *</label>
                             <input id="endDate" type="date" required class="bg-zinc-800/50 border border-white/5 px-5 py-3 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
                         </div>
                     </div>
 
-                    <input id="city" type="text" placeholder="Target City Location *" required class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    <div>
+                        <label for="city" class="block text-xs font-bold uppercase text-slate-400 mb-1 pl-1">Target City Location *</label>
+                        <input id="city" type="text" placeholder="e.g., Ahmedabad" required class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    </div>
                     
                     <div class="grid grid-cols-3 gap-4">
-                        <input id="eloMin" type="number" placeholder="Floor ELO" class="bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
-                        <input id="eloMax" type="number" placeholder="Ceiling ELO" class="bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
-                        <select id="format" class="bg-zinc-800/50 border border-white/5 px-4 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-slate-300 transition">
-                            <option value="Classical">Classical</option>
-                            <option value="Rapid">Rapid</option>
-                            <option value="Blitz">Blitz</option>
-                        </select>
+                        <div>
+                            <label for="eloMin" class="block text-xs font-bold uppercase text-slate-400 mb-1 pl-1">Floor ELO</label>
+                            <input id="eloMin" type="number" placeholder="e.g., 1000" class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                        </div>
+                        <div>
+                            <label for="eloMax" class="block text-xs font-bold uppercase text-slate-400 mb-1 pl-1">Ceiling ELO</label>
+                            <input id="eloMax" type="number" placeholder="e.g., 2800" class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                        </div>
+                        <div>
+                            <label for="format" class="block text-xs font-bold uppercase text-slate-400 mb-1 pl-1">Game Format</label>
+                            <select id="format" class="w-full bg-zinc-800/50 border border-white/5 px-4 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-slate-300 transition">
+                                <option value="Classical">Classical</option>
+                                <option value="Rapid">Rapid</option>
+                                <option value="Blitz">Blitz</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <input id="fee" type="number" placeholder="Access Fee (INR ₹)" class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
-                    <input id="regLink" type="url" placeholder="Gateway Access Protocol URL Link *" required class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
-                    <input id="brochure" type="url" placeholder="Official Data Brochure URL Docs" class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    <div>
+                        <label for="fee" class="block text-xs font-bold uppercase text-slate-400 mb-1 pl-1">Access Entry Fee (INR ₹)</label>
+                        <input id="fee" type="number" placeholder="e.g., 2500" class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    </div>
+                    <div>
+                        <label for="regLink" class="block text-xs font-bold uppercase text-slate-400 mb-1 pl-1">Direct Registration URL Link *</label>
+                        <input id="regLink" type="url" placeholder="https://aicf.in/registration-gateway" required class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    </div>
+                    <div>
+                        <label for="brochure" class="block text-xs font-bold uppercase text-slate-400 mb-1 pl-1">Official Data Circular Brochure PDF URL Docs</label>
+                        <input id="brochure" type="url" placeholder="https://aicf.in/circulars/brochure.pdf" class="w-full bg-zinc-800/50 border border-white/5 px-5 py-3.5 rounded-xl text-sm focus:border-indigo-500 outline-none text-white transition">
+                    </div>
                     
-                    <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-4 font-black rounded-xl text-sm shadow-xl shadow-purple-500/10 transition">Deploy Production Index Payload</button>
+                    <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-4 font-black rounded-xl text-sm shadow-xl shadow-purple-500/10 transition">Publish Event Entry</button>
                 </form>
             </div>
         </section>
@@ -390,7 +423,7 @@
             { id: 1, title: "4th Gujarat International Open Grandmasters 2026", startDate: "2026-06-01", endDate: "2026-06-08", city: "Ahmedabad", eloMin: 1800, eloMax: 2800, format: "Classical", fee: 2500, regLink: "https://aicf.in", brochure: "#" },
             { id: 2, title: "Meridian All India Open Rapid 2026", startDate: "2026-06-10", endDate: "2026-06-12", city: "Hyderabad", eloMin: 1000, eloMax: 2200, format: "Rapid", fee: 1200, regLink: "https://aicf.in", brochure: "#" },
             { id: 3, title: "13th BBCF International FIDE Rapid", startDate: "2026-06-20", endDate: "2026-06-20", city: "Bangalore", eloMin: 1200, eloMax: 2300, format: "Rapid", fee: 1500, regLink: "https://chessmii.com", brochure: "#" },
-            { id: 4, title: "National Under-7 Chess Championship", startDate: "2026-06-30", endDate: "2027-07-04", city: "Nagpur", eloMin: 400, eloMax: 1400, format: "Classical", fee: 1500, regLink: "https://aicf.in", brochure: "#" }
+            { id: 4, title: "National Under-7 Chess Championship", startDate: "2026-06-30", endDate: "2026-07-04", city: "Nagpur", eloMin: 400, eloMax: 1400, format: "Classical", fee: 1500, regLink: "https://aicf.in", brochure: "#" }
         ];
 
         function sanitize(str) {
@@ -466,10 +499,18 @@
             today.setHours(0,0,0,0);
             start.setHours(0,0,0,0);
             const diff = Math.ceil((start - today) / 86400000);
-            if (diff < 0) return "⏳ Live Now";
+            if (diff < 0) return "⏳ Ongoing Match";
             if (diff === 0) return "⚡ Starts Today";
             if (diff === 1) return "📅 Starts Tomorrow";
             return `📅 T-Minus ${diff} Days`;
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Direct registration URL link copied to clipboard storage successfully.");
+            }).catch(err => {
+                console.error('Could not copy link: ', err);
+            });
         }
 
         function renderTournaments(data, containerId = 'tournamentsList') {
@@ -481,7 +522,7 @@
                 container.innerHTML = `
                     <div class="col-span-1 md:col-span-3 text-center py-16 bg-zinc-900/20 rounded-2xl border border-dashed border-white/5">
                         <p class="text-3xl mb-2">📡</p>
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">No active tournament records match selection parameters.</p>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">No matching tournament entries found for your selected parameters.</p>
                     </div>`;
                 return;
             }
@@ -505,8 +546,8 @@
                         <div>
                             <div class="border-t border-white/5 pt-4 mb-4 flex justify-between items-center text-xs">
                                 <div>
-                                    <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">ELO Rating</span>
-                                    <span class="font-extrabold text-slate-200">${t.eloMin || 0} - ${t.eloMax || 'Open'}</span>
+                                    <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Rating Range</span>
+                                    <span class="font-extrabold text-slate-200">${t.eloMin || 0} - ${t.eloMax || 'Open'} ELO</span>
                                 </div>
                                 <div class="text-right">
                                     <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Entry Fee</span>
@@ -515,9 +556,12 @@
                             </div>
                             <div class="flex gap-2 items-center">
                                 <button onclick="viewDetails(${t.id})" class="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs transition border border-white/5 flex items-center justify-center gap-1.5">
-                                    <i class="fas fa-info-circle"></i> Info Deck
+                                    <i class="fas fa-info-circle"></i> Event Details
                                 </button>
-                                <button onclick="toggleSave(${t.id})" class="p-2.5 bg-zinc-800/50 hover:bg-zinc-800 rounded-xl border border-white/5 transition flex items-center justify-center">
+                                <button onclick="copyToClipboard('${t.regLink}')" title="Copy Registration Link" class="p-2.5 bg-zinc-800/50 hover:bg-zinc-800 rounded-xl border border-white/5 transition flex items-center justify-center text-slate-400 hover:text-indigo-400">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button onclick="toggleSave(${t.id})" title="Bookmark Event" class="p-2.5 bg-zinc-800/50 hover:bg-zinc-800 rounded-xl border border-white/5 transition flex items-center justify-center">
                                     <i class="${savedIcon}"></i>
                                 </button>
                             </div>
@@ -569,7 +613,7 @@
                 filtered.sort((a, b) => (b.eloMax || 0) - (a.eloMax || 0));
             }
 
-            document.getElementById('resultsCount').textContent = `Index Vector Yields: ${filtered.length} Matches Found`;
+            document.getElementById('resultsCount').textContent = `Search Results: ${filtered.length} matches found`;
             renderTournaments(filtered, 'tournamentsList');
         }
 
@@ -600,7 +644,7 @@
 
         function submitSuggestion(event) {
             event.preventDefault();
-            alert("Telemetry structural packet transmitted into main pipeline channels successfully.");
+            alert("Thank you! Your feedback message has been successfully submitted.");
             event.target.reset();
             showSection(null, 'home');
         }
@@ -608,11 +652,11 @@
         let isAdminAuthenticated = false;
         function renderManage() {
             if (!isAdminAuthenticated) {
-                const credential = prompt("Enter Sys-Admin Authentication Passcode:");
+                const credential = prompt("Enter Admin Authentication Passcode:");
                 if (credential === atob(ENCODED_PASS)) {
                     isAdminAuthenticated = true;
                 } else {
-                    alert("Access Denied: Invalid Security Signature.");
+                    alert("Access Denied: Invalid password signature.");
                     showSection(null, 'home');
                     return;
                 }
@@ -623,7 +667,7 @@
             container.innerHTML = '';
 
             if (tournaments.length === 0) {
-                container.innerHTML = `<p class="text-xs text-center text-slate-500 py-6 uppercase font-bold tracking-wider">Database clear. No active records array found.</p>`;
+                container.innerHTML = `<p class="text-xs text-center text-slate-500 py-6 uppercase font-bold tracking-wider">Database empty. No active records found.</p>`;
                 return;
             }
 
@@ -635,7 +679,7 @@
                             <p class="text-xs text-slate-400 font-medium">${sanitize(t.city)} • ${sanitize(t.format)} • ${formatDate(t.startDate)}</p>
                         </div>
                         <button onclick="deleteTournament(${t.id})" class="bg-rose-500/10 hover:bg-rose-500 border border-rose-500/20 text-rose-400 hover:text-white px-3 py-1.5 rounded-lg text-xs font-black transition tracking-wider uppercase">
-                            <i class="fas fa-trash-alt"></i> Delete
+                            <i class="fas fa-trash-alt"></i> Delete Event
                         </button>
                     </div>
                 `;
@@ -643,7 +687,7 @@
         }
 
         function deleteTournament(id) {
-            if (confirm("Confirm structural array row elimination logic execution?")) {
+            if (confirm("Are you sure you want to delete this tournament entry from the dashboard?")) {
                 tournaments = tournaments.filter(t => t.id !== id);
                 saveData();
                 let saved = JSON.parse(localStorage.getItem('savedTournaments')) || [];
@@ -669,7 +713,7 @@
             const brochure = document.getElementById('brochure').value.trim() || '#';
 
             if (new Date(startDate) > new Date(endDate)) {
-                alert("Temporal parameters collision: Start sequence data timeline cannot follow the End sequence.");
+                alert("Date placement error: The start date cannot happen after the selected end date.");
                 return;
             }
 
@@ -677,7 +721,7 @@
             tournaments.push(newTournament);
             saveData();
             event.target.reset();
-            alert("New competitive ecosystem entity appended to runtime registry pool successfully.");
+            alert("Success! The tournament has been added to the dynamic browser index feed.");
             showSection(null, 'tournaments');
         }
 
@@ -698,30 +742,30 @@
                             <span class="text-xs bg-purple-500/10 text-purple-300 font-bold px-3 py-1 rounded-md">${countdown}</span>
                         </div>
                         <h2 class="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4">${sanitize(t.title)}</h2>
-                        <p class="text-slate-400 text-sm md:text-base font-medium flex items-center gap-2"><i class="far fa-calendar-alt text-indigo-400"></i> Frame Sequence: ${formatDate(t.startDate)} to ${formatDate(t.endDate)}</p>
+                        <p class="text-slate-400 text-sm md:text-base font-medium flex items-center gap-2"><i class="far fa-calendar-alt text-indigo-400"></i> Event Timeline: ${formatDate(t.startDate)} to ${formatDate(t.endDate)}</p>
                     </div>
                     
                     <div class="p-8 md:p-12 grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div class="md:col-span-2 space-y-6">
                             <div>
-                                <h3 class="text-lg font-black text-white mb-3">Operational Parameter Metrics</h3>
+                                <h3 class="text-lg font-black text-white mb-3">Tournament Details & Parameters</h3>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div class="bg-zinc-800/30 border border-white/5 p-4 rounded-xl">
-                                        <span class="text-slate-400 text-[10px] uppercase font-bold tracking-wider block mb-0.5">Rating Bracket Matrix</span>
-                                        <span class="font-extrabold text-white">${t.eloMin} - ${t.eloMax} ELO Target Limits</span>
+                                        <span class="text-slate-400 text-[10px] uppercase font-bold tracking-wider block mb-0.5">Eligible Rating Bracket</span>
+                                        <span class="font-extrabold text-white">${t.eloMin} - ${t.eloMax} ELO Range</span>
                                     </div>
                                     <div class="bg-zinc-800/30 border border-white/5 p-4 rounded-xl">
-                                        <span class="text-slate-400 text-[10px] uppercase font-bold tracking-wider block mb-0.5">Access Toll Gateway Fee</span>
+                                        <span class="text-slate-400 text-[10px] uppercase font-bold tracking-wider block mb-0.5">Entry Registration Fee</span>
                                         <span class="font-extrabold text-emerald-400">₹${t.fee} INR</span>
                                     </div>
                                 </div>
                             </div>
                             
                             <div class="pt-4">
-                                <h3 class="text-lg font-black text-white mb-3">Protocol Documents & Downloads</h3>
+                                <h3 class="text-lg font-black text-white mb-3">Official Documents</h3>
                                 <div class="flex flex-wrap gap-3">
                                     <a href="${sanitize(t.brochure)}" target="_blank" class="bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs py-3 px-5 rounded-xl border border-white/5 transition inline-flex items-center gap-2">
-                                        <i class="fas fa-file-pdf text-rose-400"></i> Open Structural Circular Brochure
+                                        <i class="fas fa-file-pdf text-rose-400"></i> Open PDF Info Circular Brochure
                                     </a>
                                 </div>
                             </div>
@@ -729,18 +773,18 @@
                         
                         <div class="bg-zinc-800/20 border border-white/5 p-6 rounded-2xl flex flex-col justify-between space-y-6">
                             <div>
-                                <h4 class="font-black text-white text-sm uppercase tracking-wider mb-2">Registry Terminal</h4>
-                                <p class="text-xs text-slate-400 leading-relaxed font-medium">Verify structural credentials via federated system pathways to reserve matrix placement grids.</p>
+                                <h4 class="font-black text-white text-sm uppercase tracking-wider mb-2">Registration Actions</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed font-medium">Follow the verified gateway portals to secure your place in the tournament brackets.</p>
                             </div>
                             <div class="space-y-3">
                                 <a href="${sanitize(t.regLink)}" target="_blank" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-center text-white py-3.5 font-black rounded-xl text-xs shadow-lg block transition hover:brightness-110">
-                                    <i class="fas fa-external-link-alt mr-1.5"></i> Initialize Gateway Sync
+                                    <i class="fas fa-external-link-alt mr-1.5"></i> Go to Registration Page
                                 </a>
                                 <button onclick="toggleSave(${t.id}); viewDetails(${t.id});" class="w-full bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs py-3 rounded-xl border border-white/5 transition flex items-center justify-center gap-2">
-                                    <i class="${savedIcon}"></i> Bookmark Watchlist Index
+                                    <i class="${savedIcon}"></i> Bookmark for Later
                                 </button>
                                 <button onclick="showSection(null, 'tournaments')" class="w-full text-slate-400 hover:text-white font-bold text-xs py-2 transition text-center block">
-                                    <i class="fas fa-arrow-left mr-1"></i> Return to Feed Matrix
+                                    <i class="fas fa-arrow-left mr-1"></i> Back to Main Feed
                                 </button>
                             </div>
                         </div>
